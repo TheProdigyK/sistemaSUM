@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { AuthService } from 'src/app/services/auth.service'
+import { User } from 'src/app/models/user';
+
 
 @Component({
   selector: 'app-auth',
@@ -9,10 +11,10 @@ import { AuthService } from 'src/app/services/auth.service'
 })
 export class AuthComponent implements OnInit {
 
-  user = {
+  user: User = {
     id_usuario: 0,
     tipo_usuario: '',
-    ci: '',    
+    CI: '',    
     nombre_usuario: '',
     contrasena: ''
   }

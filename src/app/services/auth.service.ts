@@ -1,17 +1,17 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { Auth } from '../models/auth.model';
-const baseUrl = 'http://localhost:8080/api/sumDB';
+import { User } from '../models/user';
+const baseUrl = 'http://localhost:8080/api/auth';
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
   constructor(private http: HttpClient) { }
-  getAll(): Observable<Auth[]> {
-    return this.http.get<Auth[]>(baseUrl);
+  getAll(): Observable<User[]> {
+    return this.http.get<User[]>(baseUrl);
   }
-  get(ci: any): Observable<Auth> {
+  get(ci: any): Observable<User> {
     return this.http.get(`${baseUrl}/${ci}`);
   }
   create(data: any): Observable<any> {
