@@ -1,0 +1,45 @@
+@import '~src/scss/variables';
+
+.avatar{
+    background-image: url('../../../../../../assets/images/logogestora.png');
+    background-size: cover;
+}
+
+.active-link{
+    font-weight: bold !important;
+}
+
+.mat-nav-list{
+    width: 100%;
+    a{
+        .mat-icon{
+            margin-right: 18px;
+        }
+        display: block;
+    }
+}
+
+.nested-menu{
+    .nested{
+        list-style-type: none;
+    }
+    .submenu{
+        display: none;
+        height: 0;
+    }
+
+    & .expand{
+        &.submenu{
+            display: block;
+            list-style-type: none;
+            height: auto;
+            margin: 0;
+            li{
+                a{
+                    padding: 10px;
+                    display: block;
+                }
+            }
+        }
+    }
+}

@@ -9,7 +9,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FlexLayoutModule } from '@angular/flex-layout';
 
 import { AngularMaterialModule } from './material/angular-materia.module';
-import { AuthComponent } from './auth/auth.component';
+import { AuthComponent } from './modules/auth/auth.component';
 
 
 @NgModule({

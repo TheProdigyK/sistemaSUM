@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import { AuthService } from 'src/app/services/auth.service'
+import { Router } from '@angular/router';
+
+import { AuthService } from 'src/app/modules/auth/services/auth.service'
 import { User } from 'src/app/models/user';
 
 
@@ -19,7 +21,7 @@ export class AuthComponent implements OnInit {
     contrasena: ''
   }
   authForm: FormGroup;
-  constructor(private fb: FormBuilder, private authService: AuthService) { 
+  constructor(private fb: FormBuilder, private authService: AuthService, private router: Router) { 
     this.authForm = this.fb.group({
       usuario: ['', Validators.required],
       contrasena: ['', Validators.required]
@@ -27,7 +29,7 @@ export class AuthComponent implements OnInit {
   }
     
   ngOnInit(): void {
-    this.validateForm()
+    //this.validateForm()
     
   }
 
@@ -45,6 +47,7 @@ export class AuthComponent implements OnInit {
   onSubmit(): void {
     // display some fireworks
     console.log(this.authForm.value)
+    this.router.navigate(['dashboard'])
   }
 
 }

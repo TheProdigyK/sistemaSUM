@@ -1,0 +1,14 @@
+<mat-nav-list>
+    <mat-card>
+        <mat-card-header>
+            <div mat-card-avatar class="avatar"></div>
+            <mat-card-title>Setech UOK</mat-card-title>
+            <mat-card-subtitle>Admin</mat-card-subtitle>
+        </mat-card-header>
+    </mat-card>
+
+    <a *ngFor="let item of routes" mat-list-item [routerLinkActive]="'active-link'" [routerLink]="['/', item.path]">
+        <mat-icon color="primary" class="sidenav-icon">{{item.data.icon}}</mat-icon>
+        <span>{{item.data.text}}</span>
+    </a>
+</mat-nav-list>
