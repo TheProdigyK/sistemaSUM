@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
-import { DashboardRoutingModule } from './dashboard-routing.module';
+import { AdminRoutingModule } from './admin-routing.module';
 import { AngularMaterialModule } from '../../material/angular-materia.module';
 import { LayoutComponent } from './layout/layout.component';
 import { SideNavComponent } from './layout/side-nav-left/side-nav/side-nav.component';
@@ -19,8 +19,8 @@ import { TopNavComponent } from './layout/top-nav/top-nav.component';
   ],
   imports: [
     CommonModule,
-    DashboardRoutingModule,
+    AdminRoutingModule,
     AngularMaterialModule
   ]
 })
-export class DashboardModule { }
+export class AdminModule { }

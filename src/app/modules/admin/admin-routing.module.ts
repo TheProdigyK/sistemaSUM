@@ -1,5 +1,6 @@
+import { HomeComponent } from './dashboard/home/home.component';
 import { LayoutComponent } from './layout/layout.component';
-import { NgModule } from '@angular/core';
+import { NgModule, Component } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { childRoutes } from './child-routes';
 
@@ -9,9 +10,9 @@ const routes: Routes = [{
   children: [
     {
       path: '',
-      redirectTo: 'dashboard'
+      redirectTo: 'dashboard',
     },
-    ...childRoutes
+    ...childRoutes,
   ]
 }];
 
@@ -19,4 +20,4 @@ const routes: Routes = [{
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule]
 })
-export class DashboardRoutingModule { }
+export class AdminRoutingModule { }
