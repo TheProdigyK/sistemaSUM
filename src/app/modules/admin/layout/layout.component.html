@@ -14,11 +14,12 @@
 
     <mat-sidenav-content role="origin" id="sidenav-content"
     [ngStyle]="{'margin-left.px': isExpanded && !isMobile ? openedWidth : closedWidth}">
-    </mat-sidenav-content>
 
     <main class="main-container">
         <router-outlet></router-outlet>
     </main>
 
+    </mat-sidenav-content>
+    
     </mat-sidenav-container>
 </div>

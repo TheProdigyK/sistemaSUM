@@ -1,0 +1,63 @@
+<h1 mat-dialog-title>CREAR UN NUEVO PROCESO</h1>
+<div fxLayout="column wrap" fxLayout.xs="column" fxLayoutAlign="space-between end">
+    <p>
+        <label >Nombre del Proceso</label>
+    </p>
+    <p>
+        <mat-form-field appearance="outline">
+            <mat-label>Nombre del Proceso</mat-label>
+            <input matInput placeholder="Name">
+        </mat-form-field>
+    </p>
+    <p>
+        <label >Subir los archivos pertenecientes al proceso y seleccionar el tipo de documento</label>
+    </p>
+    <p>
+        <mat-form-field appearance="outline">
+            <mat-label>Seleccione los archivos</mat-label>
+            <input matInput placeholder="Name">
+        </mat-form-field>
+        <button mat-button>Browser</button>
+    </p>
+    
+        <div class="mat-elevation-z10 mat-table" >
+            <mat-table [dataSource]="dataSource" matSort (matSortChange)="announceSortChange($event)">
+        
+                <ng-container matColumnDef="position">
+                  <mat-header-cell *matHeaderCellDef mat-sort-header> No. </mat-header-cell>
+                  <mat-cell *matCellDef="let element"> {{element.position}} </mat-cell>
+                </ng-container>
+              
+                <!-- Name Column -->
+                <ng-container matColumnDef="name">
+                  <mat-header-cell *matHeaderCellDef mat-sort-header> Nombre Proceso </mat-header-cell>
+                  <mat-cell *matCellDef="let element"> {{element.name}} </mat-cell>
+                </ng-container>
+              
+                <!-- Weight Column -->
+                <ng-container matColumnDef="date_init">
+                  <mat-header-cell *matHeaderCellDef mat-sort-header> Fecha Inicio </mat-header-cell>
+                  <mat-cell *matCellDef="let element"> {{element.weight}} </mat-cell>
+                </ng-container>
+              
+                <!-- Symbol Column -->
+                <ng-container matColumnDef="sumariante">
+                  <mat-header-cell *matHeaderCellDef mat-sort-header> Sumariante Asociado </mat-header-cell>
+                  <mat-cell *matCellDef="let element"> {{element.symbol}} </mat-cell>
+                </ng-container>
+              
+                <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+                <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+            </mat-table>
+              <mat-paginator #paginator [length]="100" [pageSizeOptions]="[5]" aria-label="select page">
+        
+              </mat-paginator>
+        </div>
+ 
+    
+  
+</div>
+<div mat-dialog-actions>
+  <button mat-button (click)="onNoClick()">No Thanks</button>
+  <button mat-button >Ok</button>
+</div>

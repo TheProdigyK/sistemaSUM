@@ -1,4 +1,3 @@
-import { HomeComponent } from './dashboard/home/home.component';
 import { LayoutComponent } from './layout/layout.component';
 import { NgModule, Component } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
@@ -10,9 +9,9 @@ const routes: Routes = [{
   children: [
     {
       path: '',
-      redirectTo: 'dashboard',
+      redirectTo: 'active',
     },
-    ...childRoutes,
+    ...childRoutes
   ]
 }];
 

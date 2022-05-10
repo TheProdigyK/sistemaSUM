@@ -1,11 +1,9 @@
-import { NewProcessDialogComponent } from './new-process-dialog/new-process-dialog.component';
-import { StringMap } from '@angular/compiler/src/compiler_facade_interface';
 import { Component, OnInit, ViewChild } from '@angular/core';
+import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
 import { MatSort, Sort } from '@angular/material/sort';
 import { LiveAnnouncer } from '@angular/cdk/a11y';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
-import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
 
 export interface PeriodicElement{
   name: string;
@@ -28,26 +26,31 @@ const ELEMENT_DATA: PeriodicElement[] = [
 ];
 
 @Component({
-  selector: 'app-active-process',
-  templateUrl: './active-process.component.html',
-  styleUrls: ['./active-process.component.scss']
+  selector: 'app-new-process-dialog',
+  templateUrl: './new-process-dialog.component.html',
+  styleUrls: ['./new-process-dialog.component.scss']
 })
-export class ActiveProcessComponent implements OnInit {
+export class NewProcessDialogComponent implements OnInit {
   @ViewChild('paginator') paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort
 
   displayedColumns: string[] = ['position', 'name', 'date_init', 'sumariante'];
   dataSource !: MatTableDataSource<PeriodicElement>;
 
+
+
   constructor(
+    public dialogRef: MatDialogRef<NewProcessDialogComponent>,
     private _liveAnnouncer:LiveAnnouncer,
-    private dialog: MatDialog
+    private dialog: MatDialog,
   ) { }
 
   ngOnInit(): void {
-    this.dataSource = new MatTableDataSource(ELEMENT_DATA);    
+    this.dataSource = new MatTableDataSource(ELEMENT_DATA); 
   }
-
+  onNoClick(): void {
+    this.dialogRef.close();
+  }
   ngAfterViewInit(){
     //this.dataSource = new MatTableDataSource(ELEMENT_DATA);
     this.dataSource.paginator = this.paginator;
@@ -60,17 +63,4 @@ export class ActiveProcessComponent implements OnInit {
       this._liveAnnouncer.announce('sorting cleared')
     }
   }
-
-  openDialog(): void {
-    const dialogRef = this.dialog.open(NewProcessDialogComponent, {
-      width: '750px',
-      //data: {name: this.name, animal: this.animal},
-    });
-
-    dialogRef.afterClosed().subscribe(result => {
-      console.log('The dialog was closed');
-      //this.animal = result;
-    });
-  }
-
 }

@@ -45,7 +45,7 @@ img{
 }
 
 @media screen and (max-width: 768px) {
-    .visible-sd{
+    .visible-sm{
         display: block;
     }
 
@@ -55,7 +55,7 @@ img{
 }
 
 @media screen and (max-width: 768px) {
-    .visible-md{
+    .visible-sd{
         display: none;
     }
 }

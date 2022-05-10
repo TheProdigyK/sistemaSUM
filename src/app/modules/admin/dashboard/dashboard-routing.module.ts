@@ -1,10 +1,10 @@
-import { HomeComponent } from './home/home.component';
+import { ActiveProcessComponent } from './active-process/active-process.component';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
 const routes: Routes = [{
   path: '',
-  component: HomeComponent,
+  component: ActiveProcessComponent,
 }];
 
 @NgModule({

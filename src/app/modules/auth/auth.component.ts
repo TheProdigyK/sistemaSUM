@@ -9,15 +9,15 @@ import { User } from 'src/app/models/user';
 @Component({
   selector: 'app-auth',
   templateUrl: './auth.component.html',
-  styleUrls: ['./auth.component.css']
+  styleUrls: ['./auth.component.scss']
 })
 export class AuthComponent implements OnInit {
 
   user: User = {
-    id_usuario: 0,
-    tipo_usuario: '',
+    id_usuario: '',
+    id_perfil: '',
     CI: '',    
-    nombre_usuario: '',
+    nombre: '',
     contrasena: ''
   }
   authForm: FormGroup;

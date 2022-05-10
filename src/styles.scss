@@ -1,0 +1,14 @@
+@import './scss/variables';
+@import './scss/material';
+//@import './scss/theme';
+@import './scss//utils';
+@import './scss/responsive';
+
+html,
+body {
+    height: 100%;
+}
+
+body{
+    margin: 0;
+}
