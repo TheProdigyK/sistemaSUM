@@ -8,36 +8,47 @@
     <button mat-raised-button color="accent" (click)="openDialog()">CREAR PROCESO</button>
 </div>
 
-<div class="mat-elevation-z10 mat-table" >
-    <mat-table [dataSource]="dataSource" matSort (matSortChange)="announceSortChange($event)">
+<div class="">
+  <mat-table [dataSource]="dataSource" matSort (matSortChange)="announceSortChange($event)" class="smth">
 
-        <ng-container matColumnDef="position">
-          <mat-header-cell *matHeaderCellDef mat-sort-header> No. </mat-header-cell>
-          <mat-cell *matCellDef="let element"> {{element.position}} </mat-cell>
-        </ng-container>
-      
-        <!-- Name Column -->
-        <ng-container matColumnDef="name">
-          <mat-header-cell *matHeaderCellDef mat-sort-header> Nombre Proceso </mat-header-cell>
-          <mat-cell *matCellDef="let element"> {{element.name}} </mat-cell>
-        </ng-container>
-      
-        <!-- Weight Column -->
-        <ng-container matColumnDef="date_init">
-          <mat-header-cell *matHeaderCellDef mat-sort-header> Fecha Inicio </mat-header-cell>
-          <mat-cell *matCellDef="let element"> {{element.weight}} </mat-cell>
-        </ng-container>
-      
-        <!-- Symbol Column -->
-        <ng-container matColumnDef="sumariante">
-          <mat-header-cell *matHeaderCellDef mat-sort-header> Sumariante Asociado </mat-header-cell>
-          <mat-cell *matCellDef="let element"> {{element.symbol}} </mat-cell>
-        </ng-container>
-      
-        <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
-        <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
-    </mat-table>
-      <mat-paginator #paginator [length]="100" [pageSizeOptions]="[3,5,10]" aria-label="select page">
+    <ng-container matColumnDef="id_proceso">
+      <mat-header-cell *matHeaderCellDef mat-sort-header class="table_style"> No# </mat-header-cell>
+      <mat-cell *matCellDef="let element"> {{element.position}} </mat-cell>
+    </ng-container>
 
-      </mat-paginator>
+    <!-- Name Column -->
+    <ng-container matColumnDef="nombre">
+      <mat-header-cell *matHeaderCellDef mat-sort-header class="table_style"> Nombre Proceso </mat-header-cell>
+      <mat-cell *matCellDef="let element"> {{element.name}} </mat-cell>
+    </ng-container>
+
+    <!-- Weight Column -->
+    <ng-container matColumnDef="fecha_inicio">
+      <mat-header-cell *matHeaderCellDef mat-sort-header class="table_style"> Fecha Inicio </mat-header-cell>
+      <mat-cell *matCellDef="let element"> {{element.weight}} </mat-cell>
+    </ng-container>
+
+    <!-- Symbol Column -->
+    <ng-container matColumnDef="id_sumariante">
+      <mat-header-cell *matHeaderCellDef mat-sort-header class="table_style"> Sumariante Asociado </mat-header-cell>
+      <mat-cell *matCellDef="let element"> {{element.symbol}} </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="button-edit">
+      <mat-header-cell  *matHeaderCellDef ></mat-header-cell>
+      <mat-cell *matCellDef="let row" >
+          <button mat-icon-button (click)='pressed()'>
+            <mat-icon>open_in_new</mat-icon>
+          </button>
+      </mat-cell>
+      
+    </ng-container>
+    
+
+    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+    <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+  </mat-table>
+  <mat-paginator #paginator [length]="100" [pageSizeOptions]="[3,5,10]" aria-label="select page">
+
+  </mat-paginator>
 </div>

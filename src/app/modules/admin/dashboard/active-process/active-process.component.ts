@@ -1,31 +1,13 @@
+import { EditProcessDialogComponent } from './edit-process-dialog/edit-process-dialog.component';
 import { NewProcessDialogComponent } from './new-process-dialog/new-process-dialog.component';
 import { StringMap } from '@angular/compiler/src/compiler_facade_interface';
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, Input, OnInit, ViewChild } from '@angular/core';
 import { MatSort, Sort } from '@angular/material/sort';
 import { LiveAnnouncer } from '@angular/cdk/a11y';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
-
-export interface PeriodicElement{
-  name: string;
-  position: number;
-  weight: number;
-  symbol: string;
-}
-
-const ELEMENT_DATA: PeriodicElement[] = [
-  {position: 1, name: 'Hydrogen', weight: 1.0079, symbol: 'H'},
-  {position: 2, name: 'Helium', weight: 4.0026, symbol: 'He'},
-  {position: 3, name: 'Lithium', weight: 6.941, symbol: 'Li'},
-  {position: 4, name: 'Beryllium', weight: 9.0122, symbol: 'Be'},
-  {position: 5, name: 'Boron', weight: 10.811, symbol: 'B'},
-  {position: 6, name: 'Carbon', weight: 12.0107, symbol: 'C'},
-  {position: 7, name: 'Nitrogen', weight: 14.0067, symbol: 'N'},
-  {position: 8, name: 'Oxygen', weight: 15.9994, symbol: 'O'},
-  {position: 9, name: 'Fluorine', weight: 18.9984, symbol: 'F'},
-  {position: 10, name: 'Neon', weight: 20.1797, symbol: 'Ne'},
-];
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-active-process',
@@ -34,25 +16,48 @@ const ELEMENT_DATA: PeriodicElement[] = [
 })
 export class ActiveProcessComponent implements OnInit {
   @ViewChild('paginator') paginator!: MatPaginator;
-  @ViewChild(MatSort) sort!: MatSort
+  @ViewChild(MatSort) sort!: MatSort;
+  @Input() user_name = 'USER_2';
 
-  displayedColumns: string[] = ['position', 'name', 'date_init', 'sumariante'];
-  dataSource !: MatTableDataSource<PeriodicElement>;
+  displayedColumns: string[] = ['id_proceso', 'nombre', 'fecha_inicio', 'id_sumariante', 'button-edit'];
+  dataSource!: MatTableDataSource<any>;
+  data:any;
 
   constructor(
     private _liveAnnouncer:LiveAnnouncer,
-    private dialog: MatDialog
+    private dialog: MatDialog,
+    private http: HttpClient
   ) { }
 
   ngOnInit(): void {
-    this.dataSource = new MatTableDataSource(ELEMENT_DATA);    
+    console.log(this.user_name)
+    const baseUrl = 'http://localhost:8080/process'
+    
+    this.http.get(`${baseUrl}/${this.user_name}`).subscribe(data => {
+      this.data = data;
+      console.log(this.data)
+     
+      this.dataSource = new MatTableDataSource(this.data);
+      this.dataSource.paginator = this.paginator
+      
+    
+      }, error => console.error(error));
+   
+  
   }
+  
+  public pressed(){
+    const dialogRef = this.dialog.open(EditProcessDialogComponent, {
+      width: '1000px',
+    });
 
-  ngAfterViewInit(){
-    //this.dataSource = new MatTableDataSource(ELEMENT_DATA);
-    this.dataSource.paginator = this.paginator;
-    this.dataSource.sort = this.sort
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('The dialog was closed');
+    });
   }
+  
+
+
   announceSortChange(sortState:Sort){
     if(sortState.direction){
       this._liveAnnouncer.announce('Sorted${sortState.direction}ending')
@@ -64,13 +69,17 @@ export class ActiveProcessComponent implements OnInit {
   openDialog(): void {
     const dialogRef = this.dialog.open(NewProcessDialogComponent, {
       width: '750px',
-      //data: {name: this.name, animal: this.animal},
     });
 
     dialogRef.afterClosed().subscribe(result => {
       console.log('The dialog was closed');
-      //this.animal = result;
     });
   }
 
+}
+export interface PeriodicElement {
+  id_procesp: string;
+  nombre: string;
+  fecha_inicio: string;
+  id_sumariante: string;
 }

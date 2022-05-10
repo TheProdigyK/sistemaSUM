@@ -1,11 +1,11 @@
-<h1 mat-dialog-title class="text-center">CREAR UN NUEVO PROCESO</h1>
+<h1 mat-dialog-title class="text-center">EDITAR PROCESO</h1>
 <div fxLayout="column wrap" fxLayout.xs="column" fxLayoutAlign="space-between end">
   <div class="block">
     <p>
       <label class="style_nombre">Nombre del Proceso</label>
       <mat-form-field appearance="outline" id="style_input">
         <!-- <mat-label>Nombre del Proceso</mat-label> -->
-        <input matInput>
+        <input matInput  placeholder="Proceso N" readonly>
       </mat-form-field>
     </p>
   </div>
@@ -46,6 +46,26 @@
       <ng-container matColumnDef="sumariante">
         <mat-header-cell *matHeaderCellDef mat-sort-header> Tipo de Documento </mat-header-cell>
         <mat-cell *matCellDef="let element"> {{element.symbol}} </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="button-view">
+        <mat-header-cell  *matHeaderCellDef ></mat-header-cell>
+        <mat-cell *matCellDef="let row" >
+            <button mat-icon-button>
+              <mat-icon>visibility</mat-icon>
+            </button>
+        </mat-cell>
+        
+      </ng-container>
+      
+      <ng-container matColumnDef="button-delete">
+        <mat-header-cell  *matHeaderCellDef ></mat-header-cell>
+        <mat-cell *matCellDef="let row" >
+            <button mat-icon-button>
+              <mat-icon>delete_forever</mat-icon>
+            </button>
+        </mat-cell>
+        
       </ng-container>
 
       <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>

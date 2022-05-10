@@ -20,6 +20,7 @@ export class AuthComponent implements OnInit {
     nombre: '',
     contrasena: ''
   }
+  user_name = '';
   authForm: FormGroup;
   constructor(private fb: FormBuilder, private authService: AuthService, private router: Router) { 
     this.authForm = this.fb.group({
@@ -33,21 +34,26 @@ export class AuthComponent implements OnInit {
     
   }
 
-  validateForm(): void{
-    this.authService.getAll()
+  validateForm(user: string): void{
+    this.authService.getUser(user)
       .subscribe(
         data =>{
           //this.user = data;
           console.log(data)
         },
-        error => {}
+        error => {
+          console.log("error")
+        }
       );
   }  
 
   onSubmit(): void {
     // display some fireworks
-    console.log(this.authForm.value)
+    this.user_name = this.authForm.get('usuario')?.value
+    //console.log(this.user)
     this.router.navigate(['dashboard'])
+    console.log(this.user_name)
+    this.validateForm(this.user_name)
   }
 
 }
