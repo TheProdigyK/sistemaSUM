@@ -6,19 +6,9 @@ import { MatSort, Sort } from '@angular/material/sort';
 import { LiveAnnouncer } from '@angular/cdk/a11y';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
-import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
+import {MatDialog, MatDialogConfig, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
 import { HttpClient } from '@angular/common/http';
 
-export interface Proceso{
-  id_proceso: string;
-  nombre: string;
-  fecha_inicio: string;
-  id_sumariante: string;
-}
-
-const ELEMENT_DATA2: Proceso[] = [
-  {id_proceso: 'p1', nombre:'n1', fecha_inicio:'10/05/22', id_sumariante:'sum1'}
-];
 @Component({
   selector: 'app-active-process',
   templateUrl: './active-process.component.html',
@@ -29,11 +19,13 @@ export class ActiveProcessComponent implements OnInit {
   @ViewChild(MatSort) sort!: MatSort;
   @Input() user_name = 'U1';
 
-  displayedColumns: string[] = ['id_proceso', 'nombre', 'fecha_inicio', 'id_sumariante', 'button-edit'];
-  dataSource!: MatTableDataSource<Proceso>;
+  //MATERIAL TABLE VARIABLES
+  displayedColumns: string[] = ['id_proceso', 'nombre', 'fecha_inicio', 'id_sumariante', 'actions'];
+  dataSource!: MatTableDataSource<any>;
   data:any;
-  ELEMENT_DATA: Proceso[] = [];
-  
+
+  //MATERIAL SEARCH IN TABLE
+  searchKey!: string;
 
   constructor(
     private _liveAnnouncer:LiveAnnouncer,
@@ -44,44 +36,60 @@ export class ActiveProcessComponent implements OnInit {
   ngOnInit(): void {
     console.log(this.user_name)
     const baseUrl = 'http://localhost:8080/process'
-    this.dataSource = new MatTableDataSource(ELEMENT_DATA2);
     
+    //BACKEND GET PROCESS BY ID USER
     this.http.get(`${baseUrl}/${this.user_name}`).subscribe(data => {
       this.data = data;
-      //console.log(this.data)
-      this.saveDataProcess(data)
-      console.log(this.ELEMENT_DATA)
      
-      // this.dataSource = new MatTableDataSource(this.ELEMENT_DATA);
+      this.dataSource = new MatTableDataSource(this.data);
       this.dataSource.paginator = this.paginator
       this.dataSource.sort = this.sort
-
-      
-    
-      }, error => console.error(error));
-   
-  
+      }, error => console.error(error));   
   }
-  
-  saveDataProcess(data: any){
-    var process: Proceso = {
-      id_proceso: '', 
-      nombre:'', 
-      fecha_inicio:'', 
-      id_sumariante:''
-    }
 
-    for (let p in data){
-      process.fecha_inicio = data[p]['fecha_inicio'];
-      process.id_proceso = data[p]['id_proceso'];
-      process.nombre = data[p]['nombre'];
-      process.id_sumariante = 'SUM1';
-
-      this.ELEMENT_DATA.push(process)
-      
+  //SORT ELEMENT EVENT
+  announceSortChange(sortState:Sort){
+    if(sortState.direction){
+      this._liveAnnouncer.announce('Sorted${sortState.direction}ending')
+    }else{
+      this._liveAnnouncer.announce('sorting cleared')
     }
+  }
+
+  //SEARCH ELEMENT IN TABLE EVENT
+  onSearchClear() {
+    this.searchKey = "";
+    this.applyFilter();
+  }
+
+  applyFilter() {
+    this.dataSource.filter = this.searchKey.trim().toLowerCase();
+  }
+
+  //DIALOG NEW PROCESS
+  onCreate() {
+    const dialogConfig = new MatDialogConfig();
+    dialogConfig.disableClose = true;
+    dialogConfig.autoFocus = true;
+    dialogConfig.width = "60%";
+    this.dialog.open(NewProcessDialogComponent,dialogConfig);
+
+    // dialogRef.afterClosed().subscribe(result => {
+    //   console.log('The dialog was closed');
+    // });
+  }
+
+  //DIALOG EDIT PROCESS
+  onEdit(row: any){
+    const dialogConfig = new MatDialogConfig();
+    dialogConfig.disableClose = true;
+    dialogConfig.autoFocus = true;
+    dialogConfig.width = "60%";
+    dialogConfig.data = row;
+    this.dialog.open(EditProcessDialogComponent, dialogConfig);
 
   }
+
 
   public pressed(){
     const dialogRef = this.dialog.open(EditProcessDialogComponent, {
@@ -92,31 +100,8 @@ export class ActiveProcessComponent implements OnInit {
       console.log('The dialog was closed');
     });
   }
-  
 
 
-  announceSortChange(sortState:Sort){
-    if(sortState.direction){
-      this._liveAnnouncer.announce('Sorted${sortState.direction}ending')
-    }else{
-      this._liveAnnouncer.announce('sorting cleared')
-    }
-  }
 
-  openDialog(): void {
-    const dialogRef = this.dialog.open(NewProcessDialogComponent, {
-      width: '750px',
-    });
 
-    dialogRef.afterClosed().subscribe(result => {
-      console.log('The dialog was closed');
-    });
-  }
-
-}
-export interface PeriodicElement {
-  id_procesp: string;
-  nombre: string;
-  fecha_inicio: string;
-  id_sumariante: string;
 }

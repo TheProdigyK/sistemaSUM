@@ -4,25 +4,27 @@ import { MatSort, Sort } from '@angular/material/sort';
 import { LiveAnnouncer } from '@angular/cdk/a11y';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
+import { HttpClient } from '@angular/common/http';
 
-export interface PeriodicElement{
-  name: string;
-  position: number;
-  weight: number;
-  symbol: string;
+export interface proceso {
+  numero: number;
+  nombre: string;
+  fecha_inicio: string;
 }
 
-const ELEMENT_DATA: PeriodicElement[] = [
-  {position: 1, name: 'Hydrogen', weight: 1.0079, symbol: 'H'},
-  {position: 2, name: 'Helium', weight: 4.0026, symbol: 'He'},
-  {position: 3, name: 'Lithium', weight: 6.941, symbol: 'Li'},
-  {position: 4, name: 'Beryllium', weight: 9.0122, symbol: 'Be'},
-  {position: 5, name: 'Boron', weight: 10.811, symbol: 'B'},
-  {position: 6, name: 'Carbon', weight: 12.0107, symbol: 'C'},
-  {position: 7, name: 'Nitrogen', weight: 14.0067, symbol: 'N'},
-  {position: 8, name: 'Oxygen', weight: 15.9994, symbol: 'O'},
-  {position: 9, name: 'Fluorine', weight: 18.9984, symbol: 'F'},
-  {position: 10, name: 'Neon', weight: 20.1797, symbol: 'Ne'},
+export interface procesoB {
+  nombre: string;
+  id_usuario: string;
+  id_perfil: string;
+  ci: string;
+}
+
+const ELEMENT_DATA: proceso[] = [
+  {numero: 1, nombre: 'Memorial No 1', fecha_inicio: '10/05/22'},
+  {numero: 2, nombre: 'Nota No 1', fecha_inicio: '10/05/22'},
+  {numero: 3, nombre: 'Comunicado No 1', fecha_inicio: '10/05/22'},
+  {numero: 4, nombre: 'Acta No 1', fecha_inicio: '10/05/22'}
+  
 ];
 
 @Component({
@@ -34,15 +36,15 @@ export class NewProcessDialogComponent implements OnInit {
   @ViewChild('paginator') paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort
 
-  displayedColumns: string[] = ['position', 'name', 'date_init', 'sumariante'];
-  dataSource !: MatTableDataSource<PeriodicElement>;
+  displayedColumns: string[] = ['numero', 'nombre', 'fecha_inicio', 'actions'];
+  dataSource !: MatTableDataSource<proceso>;
 
 
 
   constructor(
     public dialogRef: MatDialogRef<NewProcessDialogComponent>,
     private _liveAnnouncer:LiveAnnouncer,
-    private dialog: MatDialog,
+    private http: HttpClient
   ) { }
 
   ngOnInit(): void {
@@ -56,6 +58,19 @@ export class NewProcessDialogComponent implements OnInit {
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort
   }
+
+  submitProcess(){
+    const baseUrl = 'http://localhost:8080/process'
+    
+    const data: procesoB = { nombre: "Proceso 3", id_usuario: "U1", id_perfil: "1", ci: "1122339 LP"}
+    console.log(data)
+    //BACKEND GET PROCESS BY ID USER
+    this.http.post(baseUrl, data).subscribe(
+      respuesta =>{ console.log("yes")
+      })
+    
+  }
+
   announceSortChange(sortState:Sort){
     if(sortState.direction){
       this._liveAnnouncer.announce('Sorted${sortState.direction}ending')

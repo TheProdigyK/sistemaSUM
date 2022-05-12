@@ -4,8 +4,21 @@
         
     </div>
 </div> -->
-<div class="button-row">
-    <button mat-raised-button color="accent" (click)="openDialog()">CREAR PROCESO</button>
+<div class="button-row" fxLayout="column" fxLayoutAlign="start start">
+    <p>
+      <button mat-raised-button color="accent" (click)="onCreate()">CREAR PROCESO</button>
+    </p>
+
+    <p>
+      <mat-form-field class="search-form-field">
+        <input matInput [(ngModel)]="searchKey" placeholder="Search" autocomplete="off" (keyup)="applyFilter()">
+        <button mat-button matSuffix mat-icon-button aria-label="Clear"*ngIf="searchKey"  (click)="onSearchClear()">
+          <mat-icon>close</mat-icon>
+        </button>
+      </mat-form-field>
+    </p>
+    
+    
 </div>
 
 <div class="">
@@ -13,40 +26,45 @@
 
     <ng-container matColumnDef="id_proceso">
       <mat-header-cell *matHeaderCellDef mat-sort-header class="table_style"> No# </mat-header-cell>
-      <mat-cell *matCellDef="let element"> {{element.position}} </mat-cell>
+      <mat-cell *matCellDef="let element"> {{element.id_proceso}} </mat-cell>
     </ng-container>
 
-    <!-- Name Column -->
     <ng-container matColumnDef="nombre">
       <mat-header-cell *matHeaderCellDef mat-sort-header class="table_style"> Nombre Proceso </mat-header-cell>
-      <mat-cell *matCellDef="let element"> {{element.name}} </mat-cell>
+      <mat-cell *matCellDef="let element"> {{element.nombre}} </mat-cell>
     </ng-container>
 
-    <!-- Weight Column -->
     <ng-container matColumnDef="fecha_inicio">
       <mat-header-cell *matHeaderCellDef mat-sort-header class="table_style"> Fecha Inicio </mat-header-cell>
-      <mat-cell *matCellDef="let element"> {{element.weight}} </mat-cell>
+      <mat-cell *matCellDef="let element"> {{element.fecha_inicio}} </mat-cell>
     </ng-container>
 
-    <!-- Symbol Column -->
     <ng-container matColumnDef="id_sumariante">
       <mat-header-cell *matHeaderCellDef mat-sort-header class="table_style"> Sumariante Asociado </mat-header-cell>
-      <mat-cell *matCellDef="let element"> {{element.symbol}} </mat-cell>
+      <mat-cell *matCellDef="let element"> {{element.id_sumariante}} </mat-cell>
     </ng-container>
 
-    <ng-container matColumnDef="button-edit">
-      <mat-header-cell  *matHeaderCellDef ></mat-header-cell>
-      <mat-cell *matCellDef="let row" >
-          <button mat-icon-button (click)='pressed()'>
-            <mat-icon>open_in_new</mat-icon>
-          </button>
-      </mat-cell>
-      
+    <ng-container matColumnDef="actions">
+      <mat-header-cell *matHeaderCellDef class="table_style"></mat-header-cell>
+      <mat-cell *matCellDef="let row">
+        <button mat-icon-button (click)="onEdit(row)"><mat-icon>launch</mat-icon></button>
+        <button mat-icon-button color ="warn"><mat-icon>delete_outline</mat-icon></button>
+      </mat-cell>     
     </ng-container>
-    
-
+    <ng-container matColumnDef="loading">
+      <mat-footer-cell *matFooterCellDef colspan="6">
+        Loading data...
+      </mat-footer-cell>
+    </ng-container>
+    <ng-container matColumnDef="noData">
+      <mat-footer-cell *matFooterCellDef colspan="6">
+        NO DATA...
+      </mat-footer-cell>
+    </ng-container>
     <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
     <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+    <mat-footer-row *matFooterRowDef="['loading']" [ngClass]="{'hide':dataSource!=null}"></mat-footer-row>
+    <mat-footer-row *matFooterRowDef="['noData']" [ngClass]="{'hide':!(dataSource!=null && dataSource.data.length==0)}"></mat-footer-row>
   </mat-table>
   <mat-paginator #paginator [length]="100" [pageSizeOptions]="[3,5,10]" aria-label="select page">
 
