@@ -51,7 +51,7 @@ export class AuthComponent implements OnInit {
     // display some fireworks
     this.user_name = this.authForm.get('usuario')?.value
     //console.log(this.user)
-    this.router.navigate(['dashboard'])
+    this.router.navigate([''])
     console.log(this.user_name)
     this.validateForm(this.user_name)
   }

@@ -1,11 +1,15 @@
+import { ArchivedProcessComponent } from './dashboard/archived-process/archived-process/archived-process.component';
+import { ActiveProcessComponent } from './dashboard/active-process/active-process.component';
 export const childRoutes = [
     {
         path: 'active',
-        loadChildren: () => import('./dashboard/dashboard.module').then(m => m.DashboardModule),
+        component: ActiveProcessComponent,
+        //loadChildren: () => import('./dashboard/dashboard.module').then(m => m.DashboardModule),
         data: {icon: 'dashboard', text: 'Active Process'}
     },
     {
         path: 'archived',
+        component: ArchivedProcessComponent,
         data: {icon: 'table_chart', text: 'Archived Process'}
     },
     // {

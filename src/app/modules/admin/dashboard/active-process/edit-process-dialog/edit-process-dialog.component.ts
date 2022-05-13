@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, Inject, OnInit, ViewChild } from '@angular/core';
 import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
 import { MatSort, Sort } from '@angular/material/sort';
 import { LiveAnnouncer } from '@angular/cdk/a11y';
@@ -38,9 +38,11 @@ export class EditProcessDialogComponent implements OnInit {
     public dialogRef: MatDialogRef<EditProcessDialogComponent>,
     private _liveAnnouncer:LiveAnnouncer,
     private dialog: MatDialog,
+    @Inject(MAT_DIALOG_DATA) public data: any
   ) { }
 
   ngOnInit(): void {
+    console.log(this.data)
     this.dataSource = new MatTableDataSource(ELEMENT_DATA); 
   }
   onNoClick(): void {

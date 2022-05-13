@@ -67,7 +67,9 @@ export class NewProcessDialogComponent implements OnInit {
     //BACKEND GET PROCESS BY ID USER
     this.http.post(baseUrl, data).subscribe(
       respuesta =>{ console.log("yes")
-      })
+    })
+    this.dialogRef.close();
+
     
   }
 

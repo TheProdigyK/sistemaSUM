@@ -10,9 +10,9 @@ const routes: Routes = [
 //   path:'**', 
 //   loadChildren: () => import('./modules/admin/admin.module').then(m => m.AdminModule),
 // }
-  {path:'', redirectTo: 'Auth', pathMatch: 'full'},
+  //{path:'', redirectTo: 'Auth', pathMatch: 'full'},
   {path:'Auth', component:AuthComponent},
-  {path: 'dashboard', loadChildren: () => import('./modules/admin/admin.module').then(m => m.AdminModule)},
+  {path: '', loadChildren: () => import('./modules/admin/admin.module').then(m => m.AdminModule)},
   {path: '**', loadChildren: () => import('./modules/admin/admin.module').then(m => m.AdminModule)},
   { path: '**', redirectTo: 'login', pathMatch: 'full'}
 

@@ -34,14 +34,14 @@ export class ActiveProcessComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    console.log(this.user_name)
     const baseUrl = 'http://localhost:8080/process'
     
     //BACKEND GET PROCESS BY ID USER
-    this.http.get(`${baseUrl}/${this.user_name}`).subscribe(data => {
-      this.data = data;
+    this.http.get(`${baseUrl}/${this.user_name}/activo`).subscribe(data => {
+      //this.data = data;
+      let array:any = data
      
-      this.dataSource = new MatTableDataSource(this.data);
+      this.dataSource = new MatTableDataSource(array);
       this.dataSource.paginator = this.paginator
       this.dataSource.sort = this.sort
       }, error => console.error(error));   

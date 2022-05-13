@@ -1,26 +1,3 @@
-<!-- <div fxLayout="row wrap" fxLayout.xs="column" fxLayoutAlign="space-between stretch"></div> -->
-<!-- <div class="mt20" fxLayout="row" fxLayoutAlign="space-between stretch" fxLayout.lt-md="row" fxLayoutGap="20px">
-    <div class="mb10" fxFlex="24" fxFlex.lt-lg="49">
-        
-    </div>
-</div> -->
-<div class="button-row" fxLayout="column" fxLayoutAlign="start start">
-    <p>
-      <button mat-raised-button color="accent" (click)="onCreate()">CREAR PROCESO</button>
-    </p>
-
-    <p>
-      <mat-form-field class="search-form-field">
-        <input matInput [(ngModel)]="searchKey" placeholder="Search" autocomplete="off" (keyup)="applyFilter()">
-        <button mat-button matSuffix mat-icon-button aria-label="Clear"*ngIf="searchKey"  (click)="onSearchClear()">
-          <mat-icon>close</mat-icon>
-        </button>
-      </mat-form-field>
-    </p>
-    
-    
-</div>
-
 <div class="">
   <mat-table [dataSource]="dataSource" matSort (matSortChange)="announceSortChange($event)" class="smth">
 
