@@ -1,10 +1,12 @@
+import { User } from 'src/app/models/user';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 
-import { AuthService } from 'src/app/modules/auth/services/auth.service'
-import { User } from 'src/app/models/user';
+import { Auth } from 'src/app/models/auth';
+import { AuthService } from 'src/app/services/auth.service';
 
+import decode from 'jwt-decode'
 
 @Component({
   selector: 'app-auth',
@@ -13,47 +15,42 @@ import { User } from 'src/app/models/user';
 })
 export class AuthComponent implements OnInit {
 
-  user: User = {
-    id_usuario: '',
-    id_perfil: '',
-    CI: '',    
+  private user:Auth ={
     nombre: '',
     contrasena: ''
   }
-  user_name = '';
+  private user_data!:User
   authForm: FormGroup;
   constructor(private fb: FormBuilder, private authService: AuthService, private router: Router) { 
     this.authForm = this.fb.group({
-      usuario: ['', Validators.required],
+      nombre: ['', Validators.required],
       contrasena: ['', Validators.required]
     })
   }
     
-  ngOnInit(): void {
-    //this.validateForm()
-    
+  ngOnInit(){
+    //this.validateForm(this.authForm)
   }
 
-  validateForm(user: string): void{
-    this.authService.getUser(user)
-      .subscribe(
-        data =>{
-          //this.user = data;
-          console.log(data)
-        },
-        error => {
-          console.log("error")
-        }
-      );
+
+  validateForm(){
+    this.user = this.authForm.value
+    this.authService.signin(this.user).subscribe( (res:any) =>{
+      localStorage.setItem('token', res.token)
+      this.user_data = decode(res.token || "")
+      if(this.user_data.id_perfil == 1){
+        this.router.navigate(['']) //dashboard
+      }else{
+        this.router.navigate(['view']) //view documents
+      }
+
+
+      
+    })
   }  
 
   onSubmit(): void {
-    // display some fireworks
-    this.user_name = this.authForm.get('usuario')?.value
-    //console.log(this.user)
     this.router.navigate([''])
-    console.log(this.user_name)
-    this.validateForm(this.user_name)
   }
 
 }

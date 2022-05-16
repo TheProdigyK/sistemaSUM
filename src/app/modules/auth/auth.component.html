@@ -2,7 +2,7 @@
     <img fxFlex="20%" fxLayoutAlign="center center" src="/assets/images/logogestora.png" alt="image" class="logo-appearance">
     
     <mat-card fxFlex="35%" fxFlex.xs = "45%" fxLayout="column" fxLayoutAlign="center center" style="background-color: #28B1C2">
-        <form [formGroup]="authForm" (ngSubmit)="onSubmit()">
+        <form [formGroup]="authForm" (ngSubmit)="validateForm()">
             <p fxLayoutAlign="center center">
                 <mat-label style="color: white; font-size: large">Login Account</mat-label>
             </p>
@@ -10,7 +10,7 @@
             <p>
                 <mat-form-field appearance="outline">
                     <mat-label>Ingrese nombre de usuario</mat-label>
-                    <input matInput placeholder="Username" formControlName="usuario">
+                    <input matInput placeholder="Username" formControlName="nombre">
                     <mat-icon matSuffix>account_circle</mat-icon>
                 </mat-form-field>
             </p>

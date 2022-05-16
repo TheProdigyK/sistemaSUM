@@ -6,7 +6,7 @@ import { ActiveProcessComponent } from './active-process/active-process.componen
 import {AngularMaterialModule} from '../../../material/angular-materia.module';
 import { NewProcessDialogComponent } from './active-process/new-process-dialog/new-process-dialog.component';
 import { EditProcessDialogComponent } from './active-process/edit-process-dialog/edit-process-dialog.component';
-import { ArchivedProcessComponent } from './archived-process/archived-process/archived-process.component'
+import { ArchivedProcessComponent } from './archived-process/archived-process/archived-process.component';
 
 @NgModule({
   declarations: [
@@ -14,6 +14,8 @@ import { ArchivedProcessComponent } from './archived-process/archived-process/ar
     // NewProcessDialogComponent,
     // EditProcessDialogComponent,
     // ArchivedProcessComponent
+  
+    
   ],
   imports: [
     CommonModule,

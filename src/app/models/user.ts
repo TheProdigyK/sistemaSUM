@@ -1,7 +1,7 @@
 export class User {
-    id_usuario?: string;
-    id_perfil?: string;
-    CI?: string;
+    id_usuario?: number;
     nombre?: string;
     contrasena?: string;
+    id_perfil?: number;
+    ci?: string;
 }

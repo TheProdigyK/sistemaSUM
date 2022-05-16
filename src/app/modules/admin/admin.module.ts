@@ -11,6 +11,7 @@ import { ActiveProcessComponent } from './dashboard/active-process/active-proces
 import { NewProcessDialogComponent } from './dashboard/active-process/new-process-dialog/new-process-dialog.component';
 import { EditProcessDialogComponent } from './dashboard/active-process/edit-process-dialog/edit-process-dialog.component';
 import { ArchivedProcessComponent } from './dashboard/archived-process/archived-process/archived-process.component';
+import { ViewProcessComponent } from './dashboard/view-process/view-process.component'
 
 
 

@@ -15,7 +15,7 @@ export class ArchivedProcessComponent implements OnInit {
 
   @ViewChild('paginator') paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
-  @Input() user_name = 'U1';
+  @Input() user_name = 1;
 
   //MATERIAL TABLE VARIABLES
   displayedColumns: string[] = ['id_proceso', 'nombre', 'fecha_inicio', 'id_sumariante', 'actions'];

@@ -17,13 +17,13 @@ import { HttpClient } from '@angular/common/http';
 export class ActiveProcessComponent implements OnInit {
   @ViewChild('paginator') paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
-  @Input() user_name = 'U1';
+  @Input() user_name = 1;
 
   //MATERIAL TABLE VARIABLES
   displayedColumns: string[] = ['id_proceso', 'nombre', 'fecha_inicio', 'id_sumariante', 'actions'];
   dataSource!: MatTableDataSource<any>;
   data:any;
-
+  
   //MATERIAL SEARCH IN TABLE
   searchKey!: string;
 
@@ -34,8 +34,11 @@ export class ActiveProcessComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+    this.getAllProcess()    
+  }
+
+  getAllProcess(){
     const baseUrl = 'http://localhost:8080/process'
-    
     //BACKEND GET PROCESS BY ID USER
     this.http.get(`${baseUrl}/${this.user_name}/activo`).subscribe(data => {
       //this.data = data;
@@ -44,7 +47,7 @@ export class ActiveProcessComponent implements OnInit {
       this.dataSource = new MatTableDataSource(array);
       this.dataSource.paginator = this.paginator
       this.dataSource.sort = this.sort
-      }, error => console.error(error));   
+      }, error => console.error(error)); 
   }
 
   //SORT ELEMENT EVENT
@@ -72,11 +75,13 @@ export class ActiveProcessComponent implements OnInit {
     dialogConfig.disableClose = true;
     dialogConfig.autoFocus = true;
     dialogConfig.width = "60%";
-    this.dialog.open(NewProcessDialogComponent,dialogConfig);
-
-    // dialogRef.afterClosed().subscribe(result => {
-    //   console.log('The dialog was closed');
-    // });
+    this.dialog.open(NewProcessDialogComponent,dialogConfig).afterClosed().subscribe(
+      val => {
+        if(val === 'save'){
+          this.getAllProcess()
+        }
+      }
+    );
   }
 
   //DIALOG EDIT PROCESS
@@ -86,7 +91,13 @@ export class ActiveProcessComponent implements OnInit {
     dialogConfig.autoFocus = true;
     dialogConfig.width = "60%";
     dialogConfig.data = row;
-    this.dialog.open(EditProcessDialogComponent, dialogConfig);
+    this.dialog.open(NewProcessDialogComponent, dialogConfig).afterClosed().subscribe(
+      val => {
+        if(val === 'update'){
+          this.getAllProcess()
+        }
+      }
+    );
 
   }
 

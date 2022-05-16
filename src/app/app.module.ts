@@ -13,6 +13,8 @@ import { AuthComponent } from './modules/auth/auth.component';
 
 //import { MaterialCssVarsModule, MAterialCssVarsService } from '@angular-material-css-vars'
 
+// Providers
+import { JwtHelperService, JWT_OPTIONS } from '@auth0/angular-jwt';
 
 @NgModule({
   declarations: [
@@ -28,7 +30,10 @@ import { AuthComponent } from './modules/auth/auth.component';
     FlexLayoutModule,
     HttpClientModule
   ],
-  providers: [],
+  providers: [
+    {provide: JWT_OPTIONS, useValue: JWT_OPTIONS},
+    JwtHelperService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
