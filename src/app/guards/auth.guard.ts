@@ -19,7 +19,7 @@ export class AuthGuard implements CanActivate {
     // state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
     if(!this.authServices.isAuth()){
       console.log('Token no es válido o ya expiró');
-      this.router.navigate(['Auth'])
+      this.router.navigate(['auth'])
     }
     return true;
   }

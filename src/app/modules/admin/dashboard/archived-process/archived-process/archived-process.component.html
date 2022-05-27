@@ -13,21 +13,14 @@
 
     <ng-container matColumnDef="fecha_inicio">
       <mat-header-cell *matHeaderCellDef mat-sort-header class="table_style"> Fecha Inicio </mat-header-cell>
-      <mat-cell *matCellDef="let element"> {{element.fecha_inicio}} </mat-cell>
+      <mat-cell *matCellDef="let element"> {{element.fecha_registro | date}} </mat-cell>
     </ng-container>
 
     <ng-container matColumnDef="id_sumariante">
       <mat-header-cell *matHeaderCellDef mat-sort-header class="table_style"> Sumariante Asociado </mat-header-cell>
-      <mat-cell *matCellDef="let element"> {{element.id_sumariante}} </mat-cell>
+      <mat-cell *matCellDef="let element"> {{element.usuario_registro}} </mat-cell>
     </ng-container>
 
-    <ng-container matColumnDef="actions">
-      <mat-header-cell *matHeaderCellDef class="table_style"></mat-header-cell>
-      <mat-cell *matCellDef="let row">
-        <button mat-icon-button (click)="onEdit(row)"><mat-icon>launch</mat-icon></button>
-        <button mat-icon-button color ="warn"><mat-icon>delete_outline</mat-icon></button>
-      </mat-cell>     
-    </ng-container>
     <ng-container matColumnDef="loading">
       <mat-footer-cell *matFooterCellDef colspan="6">
         Loading data...

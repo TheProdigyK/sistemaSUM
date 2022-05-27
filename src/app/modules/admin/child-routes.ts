@@ -1,3 +1,5 @@
+import { GenerateUrlComponent } from './dashboard/generate-url/generate-url.component';
+import { AddProcessComponent } from './dashboard/add-process/add-process.component';
 import { RoleGuard } from './../../guards/role.guard';
 import { ViewProcessComponent } from './dashboard/view-process/view-process.component';
 import { ArchivedProcessComponent } from './dashboard/archived-process/archived-process/archived-process.component';
@@ -8,13 +10,23 @@ export const childRoutes = [
         component: ActiveProcessComponent,
         canActivate:[RoleGuard],
         //loadChildren: () => import('./dashboard/dashboard.module').then(m => m.DashboardModule),
-        data: {icon: 'dashboard', text: 'Active Process', expectedRole: 1}
+        data: {icon: 'dashboard', text: 'Active Process', expectedRole: 1},
     },
     {
         path: 'archived',
         component: ArchivedProcessComponent,
         canActivate:[RoleGuard],
         data: {icon: 'table_chart', text: 'Archived Process', expectedRole: 1}
+    },
+    {
+        path: 'addProcess',
+        component: AddProcessComponent,
+        data: {icon: 'table_chart', text: 'Add Process', expectedRole: 3}
+    },
+    {
+        path: 'generateUrl',
+        component: GenerateUrlComponent,
+        data: {icon: 'table_chart', text: 'Add Process', expectedRole: 3}
     },
     {
         path: 'view',

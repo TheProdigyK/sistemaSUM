@@ -1,6 +1,11 @@
 export class Proceso {
-    id_proceso?: string;
+    id_proceso?: number;
     nombre?: string;
-    fecha_inicio?: string;
-    id_sumariante?: string;
+    estado?: string;
+    fecha_registro?: Date;
+    fecha_modificacion?: Date;
+    usuario_registro?: string;
+    id_usuario?: number;
+    id_perfil?: number;
+    ci?: string;
 }

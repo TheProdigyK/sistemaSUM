@@ -1,0 +1,68 @@
+<h1 mat-dialog-title class="text-center">GENERAR URL</h1>
+
+<div class="container">
+    <form>
+        <p fxLayout="row" fxLayoutAlign="start" fxLayoutGap="50px">
+            <label class="style_nombre">Nombre del Proceso</label>
+            <mat-form-field appearance="outline" id="style_input">
+                <input matInput [formControl]="nProceso" readonly>
+            </mat-form-field>
+        </p>
+
+        <p class="linea"></p>
+        <p>
+            <label id="style_color_text">Seleccione el tipo de archivo que podra ver el sumariado</label>
+        </p>
+
+        <p fxLayout="row" fxLayoutAlign="start" fxLayoutGap="50px">
+            <label class="style_nombre">Seleccionar Tipo de Documento</label>
+            <mat-form-field appearance="outline">
+                <mat-label>Seleccione tipo de documento</mat-label>
+                <mat-select [formControl]="selectedTipoDocumento" multiple>
+                  <mat-option *ngFor="let element of TipoDocumentos" [value]="element.nombre">
+                    {{element.nombre}}
+                  </mat-option>
+                </mat-select>
+            </mat-form-field>  
+        </p>
+
+        <div fxLayout="row" fxLayoutAlign="center center" >
+            <table mat-table [dataSource]="dataSumariado" class="mat-elevation-z8 sumariadoTable">
+    
+                <ng-container matColumnDef="position">
+                  <th mat-header-cell *matHeaderCellDef> No. </th>
+                  <td mat-cell *matCellDef="let element"> {{element.id_sumariado}} </td>
+                </ng-container>
+              
+                <ng-container matColumnDef="ci">
+                  <th mat-header-cell *matHeaderCellDef> Carnet </th>
+                  <td mat-cell *matCellDef="let element"> {{element.ci}} </td>
+                </ng-container>
+
+                <ng-container matColumnDef="name">
+                  <th mat-header-cell *matHeaderCellDef> Nombre de Sumariado </th>
+                  <td mat-cell *matCellDef="let element"> {{element.nombre + " " + element.apellido}} </td>
+                </ng-container>
+              
+                <ng-container matColumnDef="actions">
+                    <th mat-header-cell *matHeaderCellDef class="table_style"></th>
+                    <td mat-cell *matCellDef="let row">
+                      <button mat-icon-button (click)="onGetUrl(row)"><mat-icon>link</mat-icon></button>
+                    </td>     
+                </ng-container>
+              
+                <tr mat-header-row *matHeaderRowDef="sumariadoColumns"></tr>
+                <tr mat-row *matRowDef="let row; columns: sumariadoColumns;"></tr>
+            </table>
+    
+        </div>
+    </form>
+    <div style="margin-top: 20px;" fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="30px">
+        <button mat-button class="button-proceso" (click)="onTerminarProceso()">VOLVER</button>
+    </div>    
+
+
+        
+
+</div>
+

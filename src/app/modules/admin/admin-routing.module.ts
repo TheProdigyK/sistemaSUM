@@ -4,7 +4,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { childRoutes } from './child-routes';
 
 const routes: Routes = [{
-  path: '',
+  path: 'dashboard',
   component: LayoutComponent,
   children: [
     {

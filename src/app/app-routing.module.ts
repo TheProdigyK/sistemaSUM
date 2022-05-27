@@ -12,7 +12,7 @@ const routes: Routes = [
 //   loadChildren: () => import('./modules/admin/admin.module').then(m => m.AdminModule),
 // }
   //{path:'', redirectTo: 'Auth', pathMatch: 'full'},
-  {path:'Auth', component:AuthComponent},
+  {path:'auth', component:AuthComponent},
   {path: '', canActivate:[AuthGuard], loadChildren: () => import('./modules/admin/admin.module').then(m => m.AdminModule)},
   {path: '**', canActivate:[AuthGuard], loadChildren: () => import('./modules/admin/admin.module').then(m => m.AdminModule)}
 ];

@@ -1,0 +1,102 @@
+<h1 mat-dialog-title class="text-center">CREAR UN NUEVO PROCESO</h1>
+
+<div class="container">
+    <form>
+        <p fxLayout="row" fxLayoutAlign="start" fxLayoutGap="50px">
+            <label class="style_nombre">Nombre del Proceso</label>
+            <mat-form-field appearance="outline" id="style_input">
+                <input matInput [formControl]="nProceso" readonly>
+            </mat-form-field>
+        </p>
+        <p fxLayout="row" fxLayoutAlign="start" fxLayoutGap="30px">
+            <label class="style_nombre">Seleccionar Sumariado</label>
+            <button mat-fab color="accent" (click)="onAddSumaradio()">
+                <mat-icon>add</mat-icon>
+            </button>
+        </p>
+
+        <div fxLayout="row" fxLayoutAlign="center center" >
+            <table mat-table [dataSource]="dataSumariado" class="mat-elevation-z8 sumariadoTable">
+    
+                <ng-container matColumnDef="position">
+                  <th mat-header-cell *matHeaderCellDef> No. </th>
+                  <td mat-cell *matCellDef="let element"> {{element.id_sumariado}} </td>
+                </ng-container>
+              
+                <ng-container matColumnDef="ci">
+                  <th mat-header-cell *matHeaderCellDef> Carnet </th>
+                  <td mat-cell *matCellDef="let element"> {{element.ci}} </td>
+                </ng-container>
+
+                <ng-container matColumnDef="name">
+                  <th mat-header-cell *matHeaderCellDef> Nombre de Sumariado </th>
+                  <td mat-cell *matCellDef="let element"> {{element.nombre + " " + element.apellido}} </td>
+                </ng-container>
+              
+                <ng-container matColumnDef="actions">
+                    <th mat-header-cell *matHeaderCellDef class="table_style"></th>
+                    <td mat-cell *matCellDef="let row">
+                      <button mat-icon-button color ="warn"><mat-icon>clear</mat-icon></button>
+                    </td>     
+                </ng-container>
+              
+                <tr mat-header-row *matHeaderRowDef="sumariadoColumns"></tr>
+                <tr mat-row *matRowDef="let row; columns: sumariadoColumns;"></tr>
+            </table>
+    
+        </div>
+
+        <p class="linea"></p>
+        <p>
+            <label id="style_color_text">Subir los archivos pertenecientes al proceso y seleccionar el tipo de documento</label>
+        </p>
+        <p fxLayout="row" fxLayoutAlign="start" fxLayoutGap="50px">
+            <label class="style_nombre">Subir Documento</label>
+            <button mat-button class="button-proceso" (click)="onSelectDocument()">Browser</button>
+        </p>        
+    </form>
+    <div fxLayout="row" fxLayoutAlign="center center" >
+        <table mat-table #docTable docTable [dataSource]="dataDocument" class="mat-elevation-z8 documentTable">
+
+            <ng-container matColumnDef="position">
+              <th mat-header-cell *matHeaderCellDef> No. </th>
+              <td mat-cell *matCellDef="let element"> {{element.id_documento}} </td>
+            </ng-container>
+          
+            <ng-container matColumnDef="name">
+              <th mat-header-cell *matHeaderCellDef> Nombre de Documento </th>
+              <td mat-cell *matCellDef="let element"> {{element.nombre}} </td>
+            </ng-container>
+          
+            <ng-container matColumnDef="date">
+              <th mat-header-cell *matHeaderCellDef> Fecha de Subida </th>
+              <td mat-cell *matCellDef="let element"> {{element.fecha_registro | date}} </td>
+            </ng-container>
+          
+            <ng-container matColumnDef="type">
+              <th mat-header-cell *matHeaderCellDef> Tipo de Documento </th>
+              <td mat-cell *matCellDef="let element"> {{element.tipo}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="actions">
+                <th mat-header-cell *matHeaderCellDef class="table_style"></th>
+                <td mat-cell *matCellDef="let row">
+                  <button mat-icon-button><mat-icon>visibility</mat-icon></button>
+                  <button mat-icon-button color ="warn" (click)="deleteDocument(row)"><mat-icon>clear</mat-icon></button>
+                </td>     
+            </ng-container>
+          
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+        </table>
+
+    </div>
+
+    <div style="margin-top: 20px;" fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="30px">
+        <button mat-button class="button-proceso" (click)="onCancel()">CANCELAR</button>
+        <button mat-button class="button-proceso" (click)="onEditProcess()">EDITAR PROCESO</button>
+    </div>    
+
+
+
+</div>

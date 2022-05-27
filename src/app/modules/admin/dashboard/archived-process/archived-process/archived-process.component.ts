@@ -18,7 +18,7 @@ export class ArchivedProcessComponent implements OnInit {
   @Input() user_name = 1;
 
   //MATERIAL TABLE VARIABLES
-  displayedColumns: string[] = ['id_proceso', 'nombre', 'fecha_inicio', 'id_sumariante', 'actions'];
+  displayedColumns: string[] = ['id_proceso', 'nombre', 'fecha_inicio', 'id_sumariante'];
   dataSource!: MatTableDataSource<any>;
   data:any;
 

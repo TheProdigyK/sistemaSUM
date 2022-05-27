@@ -1,0 +1,20 @@
+<h1 mat-dialog-title class="text-center">GENERAR ENLACES</h1>
+
+<div class="container">
+    <form>
+        <p fxLayout="row" fxLayoutAlign="center start" fxLayoutGap="20px">
+            <mat-form-field appearance="outline" class="form-url" id="style_input">
+                <input matInput [formControl]="urlString" readonly>
+                <button matSuffix mat-icon-button aria-label="email">
+                    <mat-icon>email</mat-icon>
+                </button>
+            </mat-form-field>
+            <button mat-button class="button-url" (click)="generarEnlace()">GENERAR ENLACE</button>
+        </p>
+ 
+    </form>
+
+    <div style="margin-top: 20px;" fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="30px">
+        <button mat-button class="button-proceso" (click)="onTerminate()">VOLVER</button>
+    </div>
+</div>

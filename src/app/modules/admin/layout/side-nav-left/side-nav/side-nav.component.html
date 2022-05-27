@@ -9,7 +9,7 @@
 
     <a *ngFor="let item of routes">
         <div *ngIf="item.data.expectedRole == expectedRole">
-            <a mat-list-item [routerLinkActive]="'active-link'" [routerLink]="['/', item.path]">
+            <a mat-list-item [routerLinkActive]="'active-link'" [routerLink]="['/dashboard', item.path]">
                 <mat-icon color="primary" class="sidenav-icon">{{item.data.icon}}</mat-icon>
                 <span>{{item.data.text}}</span>
             </a>

@@ -43,6 +43,7 @@ import {MatTooltipModule} from '@angular/material/tooltip';
 import {MatTreeModule} from '@angular/material/tree';
 import {OverlayModule} from '@angular/cdk/overlay';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
+import { FlexLayoutModule } from '@angular/flex-layout';
 
 
 
@@ -92,7 +93,8 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
     MatToolbarModule,
     MatTooltipModule,
     MatTreeModule,
-    OverlayModule    
+    OverlayModule,
+    FlexLayoutModule,
   ]
 })
 export class AngularMaterialModule { }

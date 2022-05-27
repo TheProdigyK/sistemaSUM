@@ -1,0 +1,13 @@
+<h1 mat-dialog-title class="text-center">ARCHIVAR PROCESO</h1>
+
+<div class="">
+    <p fxLayout="column" fxLayoutAlign="start">
+        <label class="style_nombre">Seguro que quieres archivar el proceso?</label>
+        <label class="style_nombre">(accion irreversible)</label>
+    </p>
+        
+    <div style="margin-top: 20px;" fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="30px">
+        <button mat-button class="button-proceso" (click)="onCancel()">CANCELAR</button>
+        <button mat-button class="button-proceso" (click)="onArchivarProcess()">ARCHIVAR PROCESO</button>
+    </div>
+</div>

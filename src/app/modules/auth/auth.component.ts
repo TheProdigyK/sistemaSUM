@@ -39,9 +39,9 @@ export class AuthComponent implements OnInit {
       localStorage.setItem('token', res.token)
       this.user_data = decode(res.token || "")
       if(this.user_data.id_perfil == 1){
-        this.router.navigate(['']) //dashboard
+        this.router.navigate(['dashboard']) //dashboard
       }else{
-        this.router.navigate(['view']) //view documents
+        this.router.navigate(['dashboard/view']) //view documents
       }
 
 

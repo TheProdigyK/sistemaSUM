@@ -1,1 +1,37 @@
-<p>view-process works!</p>
+<h1 mat-dialog-title class="text-center">DOCUMENTOS</h1>
+
+<div fxLayout="row" fxLayoutAlign="center center" >
+    <table mat-table #docTable docTable [dataSource]="dataDocument" class="mat-elevation-z8 documentTable">
+
+        <ng-container matColumnDef="position">
+          <th mat-header-cell *matHeaderCellDef> No. </th>
+          <td mat-cell *matCellDef="let element"> {{element.id_documento}} </td>
+        </ng-container>
+      
+        <ng-container matColumnDef="name">
+          <th mat-header-cell *matHeaderCellDef> Nombre de Documento </th>
+          <td mat-cell *matCellDef="let element"> {{element.nombre}} </td>
+        </ng-container>
+      
+        <ng-container matColumnDef="date">
+          <th mat-header-cell *matHeaderCellDef> Fecha de Subida </th>
+          <td mat-cell *matCellDef="let element"> {{element.fecha_registro}} </td>
+        </ng-container>
+      
+        <ng-container matColumnDef="type">
+          <th mat-header-cell *matHeaderCellDef> Tipo de Documento </th>
+          <td mat-cell *matCellDef="let element"> {{element.tipo}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="actions">
+            <th mat-header-cell *matHeaderCellDef class="table_style"></th>
+            <td mat-cell *matCellDef="let row">
+              <button mat-icon-button><mat-icon>visibility</mat-icon></button>
+            </td>     
+        </ng-container>
+      
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
+
+</div>

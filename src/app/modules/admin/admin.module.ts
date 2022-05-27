@@ -8,20 +8,30 @@ import { SideNavComponent } from './layout/side-nav-left/side-nav/side-nav.compo
 import { SideNavClosedComponent } from './layout/side-nav-left/side-nav-closed/side-nav-closed.component';
 import { TopNavComponent } from './layout/top-nav/top-nav.component';
 import { ActiveProcessComponent } from './dashboard/active-process/active-process.component';
-import { NewProcessDialogComponent } from './dashboard/active-process/new-process-dialog/new-process-dialog.component';
-import { EditProcessDialogComponent } from './dashboard/active-process/edit-process-dialog/edit-process-dialog.component';
 import { ArchivedProcessComponent } from './dashboard/archived-process/archived-process/archived-process.component';
 import { ViewProcessComponent } from './dashboard/view-process/view-process.component'
-
+import { AddProcessComponent } from './dashboard/add-process/add-process.component';
+import { SumariadoDialogComponent } from './dashboard/add-process/sumariado-dialog/sumariado-dialog.component';
+import { DocumentDialogComponent } from './dashboard/add-process/document-dialog/document-dialog.component';
+import { NuevoProcesoDialogComponent } from './dashboard/active-process/nuevo-proceso-dialog/nuevo-proceso-dialog.component';
+import { ArchivarProcesoDialogComponent } from './dashboard/active-process/archivar-proceso-dialog/archivar-proceso-dialog.component';
+import { GenerateUrlComponent } from './dashboard/generate-url/generate-url.component';
+import { UrlDialogComponent } from './dashboard/generate-url/url-dialog/url-dialog.component';
 
 
 
 @NgModule({
   declarations: [
     ActiveProcessComponent,
-    NewProcessDialogComponent,
-    EditProcessDialogComponent,
+    NuevoProcesoDialogComponent,
+    ArchivarProcesoDialogComponent,
     ArchivedProcessComponent,
+    AddProcessComponent,
+    SumariadoDialogComponent,
+    DocumentDialogComponent,
+    ViewProcessComponent,
+    GenerateUrlComponent,
+    UrlDialogComponent,
     LayoutComponent,
     SideNavComponent,
     SideNavClosedComponent,

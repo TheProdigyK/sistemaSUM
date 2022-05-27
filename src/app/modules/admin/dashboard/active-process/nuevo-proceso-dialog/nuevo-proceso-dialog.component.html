@@ -1,0 +1,18 @@
+<h1 mat-dialog-title class="text-center">CREAR UN NUEVO PROCESO</h1>
+
+<div class="">
+    <form [formGroup]="processForm">
+        <p fxLayout="row" fxLayoutAlign="start" fxLayoutGap="50px">
+            <label class="style_nombre">Nombre del Proceso</label>
+            <mat-form-field appearance="outline" id="style_input">
+                <input formControlName="processName" matInput>
+            </mat-form-field>
+        </p>
+        
+    </form>
+
+    <div style="margin-top: 20px;" fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="30px">
+        <button mat-button class="button-proceso" (click)="onCancel()">CANCELAR</button>
+        <button mat-button class="button-proceso" (click)="onCreateProcess()">CREAR PROCESO</button>
+    </div>
+</div>
