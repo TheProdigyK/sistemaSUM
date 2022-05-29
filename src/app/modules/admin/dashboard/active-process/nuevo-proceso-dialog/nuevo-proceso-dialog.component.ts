@@ -47,7 +47,6 @@ export class NuevoProcesoDialogComponent implements OnInit {
   //CREATE PROCESS BUTTON DIALOG
   onCreateProcess(){
     let date: Date = new Date();
-    const baseUrl = 'http://localhost:8080/process'
     this.nuevo_proceso = {
       nombre: this.processForm.value['processName'],
       estado: "activo",

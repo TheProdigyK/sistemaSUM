@@ -1,7 +1,7 @@
+import { DocumentoService } from './../../../../../services/documento.service';
 import { TipoDocumento } from './../../../../../models/tipo_documento';
 import { Component, OnInit } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
-import { HttpClient } from '@angular/common/http';
 import { MatDialogRef } from '@angular/material/dialog';
 
 export interface documentoDialog{
@@ -30,7 +30,7 @@ export class DocumentDialogComponent implements OnInit {
 
   constructor(
     public dialogRef: MatDialogRef<DocumentDialogComponent>,
-    private http: HttpClient,
+    private documentService: DocumentoService
   ) { }
 
   ngOnInit(): void {
@@ -68,8 +68,7 @@ export class DocumentDialogComponent implements OnInit {
 
   //GET TYPE DOCUMENTS
   typeDocuments(){
-  const baseUrl = 'http://localhost:8080/document'
-  this.http.get<TipoDocumento[]>(`${baseUrl}`).subscribe(
+  this.documentService.getTipoDocumento().subscribe(
     data =>{
       this.TipoDocumentos = data
     }

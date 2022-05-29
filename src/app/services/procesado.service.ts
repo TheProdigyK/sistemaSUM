@@ -16,4 +16,8 @@ export class ProcesadoService {
   getProcesadosById(id_proceso: number){
     return this.http.get<Sumariado[]>(`${environment.procesadoURL}/${id_proceso}`)
   }
+
+  uploadProcesado(procesado: Procesado){
+    return this.http.post<Procesado[]>(`${environment.procesadoURL}`, procesado)
+  }
 }

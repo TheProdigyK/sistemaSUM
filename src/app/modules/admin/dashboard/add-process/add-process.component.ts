@@ -168,12 +168,11 @@ export class AddProcessComponent implements OnInit {
     });
     let httpReqs = procesados
     .map(i => 
-        this.http.post(`${baseUrl}`,i)
+        this.procesadoService.uploadProcesado(i)
         .pipe(catchError(err => of({err})))
         );
     
     concat(...httpReqs).subscribe()
-
   }
   
   uploadFile(doc: Documento, docStorage: DocumentoStorage){
