@@ -1,3 +1,4 @@
+import { DocumentoService } from './../../../../services/documento.service';
 import { DocumentoStorage } from './../../../../models/documentoStorage';
 import { Procesado } from './../../../../models/procesado';
 import { Documento } from './../../../../models/documento';
@@ -52,7 +53,8 @@ export class AddProcessComponent implements OnInit {
     private http: HttpClient,
     private router: Router,
     private route: ActivatedRoute,
-    private procesadoService: ProcesadoService
+    private procesadoService: ProcesadoService,
+    private documentoService: DocumentoService
   ) { }
 
   ngOnInit(): void {
@@ -181,11 +183,14 @@ export class AddProcessComponent implements OnInit {
     let fileExtension:string = docStorage.file!.name.split('.').pop() || "";
     let fileName:string = doc.usuario_registro! + '-Documento' + doc.tipo! + '.'+fileExtension
     formData.append('myFile', docStorage.file!, fileName)
-    this.http.post(`${baseUrl}`,formData).subscribe(
-      data =>{
-      }
-    )
+    // this.http.post(`${baseUrl}`,formData).subscribe(
+    //   data =>{
+    //   }
+    // )
     
+    this.documentoService.postDocumentos(formData).subscribe(res => {
+      console.log("documento posteado")
+    })
   }
 
   uploadDocument(doc: Documento[]){
@@ -225,5 +230,7 @@ export class AddProcessComponent implements OnInit {
   deleteDocument(row:any){
     this.dataDocument.splice(this.dataDocument.indexOf(row), 1);
     this.docTable.renderRows();
+
+    
   }
 }

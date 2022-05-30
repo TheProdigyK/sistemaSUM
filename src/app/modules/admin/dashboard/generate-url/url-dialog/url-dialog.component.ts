@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
-import { MatDialogRef } from '@angular/material/dialog';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { SumariadoService } from 'src/app/services/sumariado.service';
 
 @Component({
   selector: 'app-url-dialog',
@@ -13,9 +14,12 @@ export class UrlDialogComponent implements OnInit {
   
   constructor(
     public dialogRef: MatDialogRef<UrlDialogComponent>,
+    private sumariadoService: SumariadoService,
+    @Inject(MAT_DIALOG_DATA) public id_sumariado: number
   ) { }
 
   ngOnInit(): void {
+    console.log(this.id_sumariado)
     
   }
 
@@ -25,6 +29,12 @@ export class UrlDialogComponent implements OnInit {
 
   onTerminate(){
     this.dialogRef.close({event:"cancel"});
+  }
+
+  send_email(){
+    this.sumariadoService.postSendEmailById(this.id_sumariado).subscribe(res =>{
+      console.log("EMAIL ENVIADO CON EXITO")
+    });
   }
 
 

@@ -6,7 +6,8 @@ export const environment = {
   production: false,
   processURL: 'http://localhost:8080/process',
   procesadoURL: 'http://localhost:8080/procesado',
-  documentoURL: 'http://localhost:8080/document'
+  documentoURL: 'http://localhost:8080/document',
+  sumariadoURL: 'http://localhost:8080/sumariado'
 };
 
 /*

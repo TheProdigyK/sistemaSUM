@@ -15,4 +15,8 @@ export class DocumentoService {
   getTipoDocumento(){
     return this.http.get<TipoDocumento[]>(`${environment.documentoURL}`)
   }
+
+  postDocumentos(formData: FormData){
+    return this.http.post(`${environment.documentoURL}/upload`,formData)
+  }
 }

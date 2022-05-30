@@ -77,6 +77,7 @@ export class GenerateUrlComponent implements OnInit {
     dialogConfig.disableClose = true;
     dialogConfig.autoFocus = true;
     dialogConfig.width = "60%";
+    dialogConfig.data = row.id_sumariado;
     this.dialog.open(UrlDialogComponent,dialogConfig).afterClosed().subscribe(
       result => {
         if(result.event == 'add'){
