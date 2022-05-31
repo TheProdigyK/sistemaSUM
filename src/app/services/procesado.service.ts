@@ -9,15 +9,17 @@ import { environment } from 'src/environments/environment';
 })
 export class ProcesadoService {
 
+  private URL = environment.URL + "/procesado"
+
   constructor(
     private http: HttpClient
   ) { }
 
   getProcesadosById(id_proceso: number){
-    return this.http.get<Sumariado[]>(`${environment.procesadoURL}/${id_proceso}`)
+    return this.http.get<Sumariado[]>(`${this.URL}/${id_proceso}`)
   }
 
   uploadProcesado(procesado: Procesado){
-    return this.http.post<Procesado[]>(`${environment.procesadoURL}`, procesado)
+    return this.http.post<Procesado[]>(`${this.URL}`, procesado)
   }
 }

@@ -1,3 +1,4 @@
+import { DocumentoService } from './../../../../services/documento.service';
 import { UrlDialogComponent } from './url-dialog/url-dialog.component';
 import { Sumariado } from 'src/app/models/sumariado';
 import { Component, OnInit } from '@angular/core';
@@ -29,10 +30,10 @@ export class GenerateUrlComponent implements OnInit {
 
   constructor(
     private dialog: MatDialog,
-    private http: HttpClient,
     private router: Router,
     private route: ActivatedRoute,
-    private procesadoService: ProcesadoService
+    private procesadoService: ProcesadoService,
+    private documentoService: DocumentoService
   ) { }
 
   ngOnInit(): void {
@@ -42,10 +43,7 @@ export class GenerateUrlComponent implements OnInit {
 
     this.typeDocuments()
     this.getProcesados()
-
-
-
-  }
+ }
 
   onCancel(){
     this.router.navigate(['dashboard/active'])
@@ -57,8 +55,7 @@ export class GenerateUrlComponent implements OnInit {
 
   //GET TYPE DOCUMENTS
   typeDocuments(){
-    const baseUrl = 'http://localhost:8080/document'
-    this.http.get<TipoDocumento[]>(`${baseUrl}`).subscribe(
+    this.documentoService.getTipoDocumento().subscribe(
       data =>{
         this.TipoDocumentos = data
       }
@@ -80,12 +77,9 @@ export class GenerateUrlComponent implements OnInit {
     dialogConfig.data = row.id_sumariado;
     this.dialog.open(UrlDialogComponent,dialogConfig).afterClosed().subscribe(
       result => {
-        if(result.event == 'add'){
-          
+        if(result.event == 'add'){  
         }
       }
     );
-
   }
-
 }

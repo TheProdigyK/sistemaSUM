@@ -9,20 +9,25 @@ import { User } from '../models/user';
 })
 export class ProcesoService {
 
+  private URL = environment.URL + "/process"
   constructor(
     private http: HttpClient
   ) { }
 
   archivarProceso(proceso: Proceso){
-    return this.http.put(`${environment.processURL}/${proceso.id_proceso}`,{})
+    return this.http.put(`${this.URL}/${proceso.id_proceso}`,{})
   }
 
   getAllProcess(sumariante: User){
-    return this.http.get<Proceso[]>(`${environment.processURL}/${sumariante.id_usuario}/activo`)
+    return this.http.get<Proceso[]>(`${this.URL}/${sumariante.id_usuario}/activo`)
   }
 
   createProcess(proceso: Proceso){
-    return this.http.post(`${environment.processURL}`, proceso)
+    return this.http.post(`${this.URL}`, proceso)
+  }
+
+  getProcessById(id_user: number){
+    return this.http.get(`${this.URL}/${id_user}/archivado`)
   }
   
 }

@@ -50,7 +50,6 @@ export class AddProcessComponent implements OnInit {
 
   constructor(
     private dialog: MatDialog,
-    private http: HttpClient,
     private router: Router,
     private route: ActivatedRoute,
     private procesadoService: ProcesadoService,
@@ -156,7 +155,6 @@ export class AddProcessComponent implements OnInit {
   }
 
   uploadSumariado(){
-    const baseUrl = 'http://localhost:8080/procesado';
     let procesados:Procesado[] = []
     this.dataSumariado.forEach(x => {
       procesados.push({
@@ -178,19 +176,6 @@ export class AddProcessComponent implements OnInit {
   }
   
   uploadFile(doc: Documento[], docStorage: DocumentoStorage[]){
-    const baseUrl = 'http://localhost:8080/document/upload'
-    // const formData = new FormData();
-    // let fileExtension:string = docStorage.file!.name.split('.').pop() || "";
-    // let fileName:string = doc.usuario_registro! + '-Documento' + doc.tipo! + '.'+fileExtension
-    // formData.append('myFile', docStorage.file!, fileName)
-    // this.http.post(`${baseUrl}`,formData).subscribe(
-    //   data =>{
-    //   }
-    // )
-
-    // this.documentoService.postDocumentos(formData).subscribe(res => {
-    //   console.log("documento posteado")
-    // })
     var formDatas: FormData[] = []
     docStorage.forEach(
       docS => {
@@ -205,7 +190,7 @@ export class AddProcessComponent implements OnInit {
 
     let httpReqs = formDatas
     .map(fileS => 
-      this.documentoService.postDocumentos(fileS).pipe(catchError(err => of({err})))
+      this.documentoService.postDocumentosArchivo(fileS).pipe(catchError(err => of({err})))
     );
 
     concat(...httpReqs).subscribe()
@@ -213,20 +198,14 @@ export class AddProcessComponent implements OnInit {
   }
 
   uploadDocument(doc: Documento[]){
-    const baseUrl = 'http://localhost:8080/document'
     
     let httpReqs = doc
     .map(i => 
-        this.http.post(`${baseUrl}`,i)
+        this.documentoService.postDocumentosDB(i)
         .pipe(catchError(err => of({err})))
         );
     
     concat(...httpReqs).subscribe()
-
-    // this.http.post(`${baseUrl}`, doc).subscribe(
-    //   data =>{
-    //   }
-    // )
   }
 
   getProcesados(){
@@ -237,9 +216,7 @@ export class AddProcessComponent implements OnInit {
   }
 
   getDocuments(){
-    const baseUrl = 'http://localhost:8080/document'
-    
-    this.http.get<Documento[]>(`${baseUrl}/${this.id_proceso}`).subscribe(
+    this.documentoService.getDocuments(this.id_proceso).subscribe(
       res =>{
         this.dataDocument = res
       }
@@ -249,7 +226,5 @@ export class AddProcessComponent implements OnInit {
   deleteDocument(row:any){
     this.dataDocument.splice(this.dataDocument.indexOf(row), 1);
     this.docTable.renderRows();
-
-    
   }
 }

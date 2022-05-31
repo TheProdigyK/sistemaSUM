@@ -6,12 +6,14 @@ import { environment } from 'src/environments/environment';
   providedIn: 'root'
 })
 export class SumariadoService {
+  
+  private URL = environment.URL + "/sumariado"
 
   constructor(
     private http: HttpClient
   ) { }
 
   postSendEmailById(id_sumariado: number){
-    return this.http.get(`${environment.sumariadoURL}/email/${id_sumariado}`)
+    return this.http.get(`${this.URL}/email/${id_sumariado}`)
   }
 }

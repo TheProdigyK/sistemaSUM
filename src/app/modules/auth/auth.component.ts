@@ -32,7 +32,6 @@ export class AuthComponent implements OnInit {
     //this.validateForm(this.authForm)
   }
 
-
   validateForm(){
     this.user = this.authForm.value
     this.authService.signin(this.user).subscribe( (res:any) =>{
@@ -43,14 +42,9 @@ export class AuthComponent implements OnInit {
       }else{
         this.router.navigate(['dashboard/view']) //view documents
       }
-
-
-      
     })
   }  
-
   onSubmit(): void {
     this.router.navigate([''])
   }
-
 }

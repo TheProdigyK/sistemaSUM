@@ -1,3 +1,4 @@
+import { ProcesoService } from 'src/app/services/proceso.service';
 import { LiveAnnouncer } from '@angular/cdk/a11y';
 import { HttpClient } from '@angular/common/http';
 import { Component, Input, OnInit, ViewChild } from '@angular/core';
@@ -28,14 +29,13 @@ export class ArchivedProcessComponent implements OnInit {
   constructor(
     private _liveAnnouncer:LiveAnnouncer,
     private dialog: MatDialog,
-    private http: HttpClient
+    private procesoService: ProcesoService
   ) { }
 
   ngOnInit(): void {
-    const baseUrl = 'http://localhost:8080/process'
     
     //BACKEND GET PROCESS BY ID USER
-    this.http.get(`${baseUrl}/${this.user_name}/archivado`).subscribe(data => {
+    this.procesoService.getProcessById(this.user_name).subscribe(data => {
       this.data = data;
      
       this.dataSource = new MatTableDataSource(this.data);
@@ -50,8 +50,6 @@ export class ArchivedProcessComponent implements OnInit {
 
   //DIALOG EDIT PROCESS
   onEdit(row: any){
-
-
   }
 
   //SORT ELEMENT EVENT
@@ -72,5 +70,4 @@ export class ArchivedProcessComponent implements OnInit {
   applyFilter() {
     this.dataSource.filter = this.searchKey.trim().toLowerCase();
   }
-
 }

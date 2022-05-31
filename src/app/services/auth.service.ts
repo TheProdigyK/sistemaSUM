@@ -2,13 +2,14 @@ import { JwtHelperService } from '@auth0/angular-jwt';
 import { Auth } from './../models/auth';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
 
-  private URL = 'http://localhost:8080'
+  private URL = environment.URL
 
   constructor(
     private http: HttpClient,
