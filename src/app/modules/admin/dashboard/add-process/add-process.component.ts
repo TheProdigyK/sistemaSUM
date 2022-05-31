@@ -76,7 +76,7 @@ export class AddProcessComponent implements OnInit {
   onEditProcess(){
     this.uploadSumariado();
     if(this.dataDocument.length > 0){
-      this.uploadFile(this.dataDocument[0], this.dataDocumentStorage[0])
+      this.uploadFile(this.dataDocument, this.dataDocumentStorage)
       this.uploadDocument(this.dataDocument)
     }
     
@@ -124,7 +124,7 @@ export class AddProcessComponent implements OnInit {
             fecha_modificacion: date,
             id_proceso: this.id_proceso,
             n_correspondencia: "1",
-            ruta: "//",
+            ruta: "./uploads/"+this.sumariante.nombre,
             usuario_registro: this.sumariante.nombre,
             estado: "activo",
             id_usuario: this.sumariante.id_usuario,
@@ -177,20 +177,39 @@ export class AddProcessComponent implements OnInit {
     concat(...httpReqs).subscribe()
   }
   
-  uploadFile(doc: Documento, docStorage: DocumentoStorage){
+  uploadFile(doc: Documento[], docStorage: DocumentoStorage[]){
     const baseUrl = 'http://localhost:8080/document/upload'
-    const formData = new FormData();
-    let fileExtension:string = docStorage.file!.name.split('.').pop() || "";
-    let fileName:string = doc.usuario_registro! + '-Documento' + doc.tipo! + '.'+fileExtension
-    formData.append('myFile', docStorage.file!, fileName)
+    // const formData = new FormData();
+    // let fileExtension:string = docStorage.file!.name.split('.').pop() || "";
+    // let fileName:string = doc.usuario_registro! + '-Documento' + doc.tipo! + '.'+fileExtension
+    // formData.append('myFile', docStorage.file!, fileName)
     // this.http.post(`${baseUrl}`,formData).subscribe(
     //   data =>{
     //   }
     // )
+
+    // this.documentoService.postDocumentos(formData).subscribe(res => {
+    //   console.log("documento posteado")
+    // })
+    var formDatas: FormData[] = []
+    docStorage.forEach(
+      docS => {
+        var index = doc.findIndex(x => x.nombre==docS.nombre); 
+        let formData = new FormData();
+        let fileExtension:string = docS.file!.name.split('.').pop() || "";
+        let fileName:string = doc[index].usuario_registro! + '-Documento' + doc[index].tipo! + '.'+fileExtension
+        formData.append('myFile', docStorage[index].file!, fileName)
+        formDatas.push(formData)
+      }
+    )
+
+    let httpReqs = formDatas
+    .map(fileS => 
+      this.documentoService.postDocumentos(fileS).pipe(catchError(err => of({err})))
+    );
+
+    concat(...httpReqs).subscribe()
     
-    this.documentoService.postDocumentos(formData).subscribe(res => {
-      console.log("documento posteado")
-    })
   }
 
   uploadDocument(doc: Documento[]){
