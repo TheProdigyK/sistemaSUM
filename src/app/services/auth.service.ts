@@ -9,7 +9,7 @@ import { environment } from 'src/environments/environment';
 })
 export class AuthService {
 
-  private URL = environment.URL
+  private pURL = environment.URL + "/evento"
 
   constructor(
     private http: HttpClient,
@@ -26,7 +26,7 @@ export class AuthService {
 
   //SIGN IN USER
   signin(user: Auth){
-    return this.http.post(`${this.URL}/auth`, user)
+    return this.http.post(`${this.pURL}/auth`, user)
   }
 
 }

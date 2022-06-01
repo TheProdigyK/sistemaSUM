@@ -1,3 +1,4 @@
+import { SumariadoService } from 'src/app/services/sumariado.service';
 import { SumariadoL } from './../../../../../models/sumariadoL';
 import { Component, OnInit, QueryList, ViewChildren } from '@angular/core';
 import { MatDialogRef } from '@angular/material/dialog';
@@ -51,6 +52,7 @@ export class SumariadoDialogComponent implements OnInit {
   constructor(
     public dialogRef: MatDialogRef<SumariadoDialogComponent>,
     private http: HttpClient,
+    private sumariadoServices: SumariadoService
 
   ) { }
 
@@ -60,8 +62,7 @@ export class SumariadoDialogComponent implements OnInit {
   //SEARCH SUMARIADO BUTTON
   searchSumariado(){
     this.disableSelect = false
-    const baseUrl = 'http://localhost:8080/sumariado'
-    this.http.get<Sumariado[]>(`${baseUrl}/${this.queryCi.value}`).subscribe(
+    this.sumariadoServices.getSumariadosByQuery(this.queryCi.value).subscribe(
       data =>{
         this.sumariados = data;
       }
@@ -83,8 +84,6 @@ export class SumariadoDialogComponent implements OnInit {
       }
     })
     this.dialogRef.close({event:"add",data:new_row})
-
-    
   }
 
 }

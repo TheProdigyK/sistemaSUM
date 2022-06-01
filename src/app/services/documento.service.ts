@@ -9,25 +9,26 @@ import { Documento } from '../models/documento';
 })
 export class DocumentoService {
 
-  private URL = environment.URL + "/document"
+  private gURL = environment.URL + "/recurso" + "/document"
+  private pURL = environment.URL + "/evento" + "/document"
 
   constructor(
     private http: HttpClient
   ) { }
 
   getTipoDocumento(){
-    return this.http.get<TipoDocumento[]>(`${this.URL}`)
+    return this.http.get<TipoDocumento[]>(`${this.gURL}`)
   }
 
   getDocuments(id_proceso: number){
-    return this.http.get<Documento[]>(`${this.URL}/${id_proceso}`)
+    return this.http.get<Documento[]>(`${this.gURL}/${id_proceso}`)
   }
 
   postDocumentosDB(doc: Documento){
-    return this.http.post(`${this.URL}`, doc)
+    return this.http.post(`${this.pURL}`, doc)
   }
 
   postDocumentosArchivo(formData: FormData){
-    return this.http.post(`${this.URL}/upload`,formData)
+    return this.http.post(`${this.pURL}/upload`,formData)
   }
 }
