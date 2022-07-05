@@ -6,8 +6,8 @@ import { MatDialogRef } from '@angular/material/dialog';
 
 export interface documentoDialog{
   archivo?: File,
-  tipo?: string,
-  id_tipo?: number  
+  nombreArchivo?: string,
+  referenciaArchivo?: string
 }
 
 @Component({
@@ -21,6 +21,9 @@ export interface documentoDialog{
 export class DocumentDialogComponent implements OnInit {
 
   selectedTipoDocumento = new FormControl('', Validators.required);
+  nameDocument = new FormControl('', Validators.required);
+  refDocument = new FormControl('', Validators.required);
+
   name_doc = new FormControl('', Validators.required);
   uploadFiles!: Array<File>
 
@@ -34,7 +37,6 @@ export class DocumentDialogComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.typeDocuments()
   }
 
   
@@ -46,6 +48,7 @@ export class DocumentDialogComponent implements OnInit {
   }
 
   onUploadFile(){
+    /*
     let tipodocumento_data!:TipoDocumento
     this.TipoDocumentos.forEach(x =>{
       if(x.nombre == this.selectedTipoDocumento.value){
@@ -54,10 +57,11 @@ export class DocumentDialogComponent implements OnInit {
       }
 
     })
+    */
     let archivo: documentoDialog = {
       archivo: this.uploadFiles[0],
-      tipo: tipodocumento_data.nombre,
-      id_tipo: tipodocumento_data.id_tipo_documento
+      nombreArchivo: this.nameDocument.value,
+      referenciaArchivo: this.refDocument.value
     }
     this.dialogRef.close({event:"add",data:archivo})
   }

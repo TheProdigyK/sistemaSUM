@@ -1,0 +1,18 @@
+<h1 mat-dialog-title class="text-center">ELIMINAR {{title}}</h1>
+
+<div class="">
+    <p fxLayout="column" fxLayoutAlign="start">
+        <label class="style_nombre">¿Seguro que quieres eliminar el siguiente item?</label>
+    </p>
+
+    <p fxLayout="rows" fxLayoutAlign="start">
+        <textarea readonly rows="5" cols="40" class="style_nombre" style="font-size: 16px;">{{item}}</textarea>
+    </p>
+        
+    
+    <div style="margin-top: 20px;" fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="30px">
+        <button mat-button class="button-proceso" (click)="onCancel()">CANCELAR</button>
+        <button mat-button class="button-proceso" (click)="onConfirm()">ELIMINAR</button>
+    </div>
+</div>
+

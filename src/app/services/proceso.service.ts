@@ -28,8 +28,19 @@ export class ProcesoService {
     return this.http.post(`${this.pURL}`, proceso)
   }
 
-  getProcessById(id_user: number){
-    return this.http.get(`${this.gURL}/${id_user}/archivado`)
+  getProcessById(sumariante: User){
+    return this.http.get<Proceso[]>(`${this.gURL}/${sumariante.id_usuario}/archivado`)
   }
-  
+
+  private gURL_SU = environment.URL + "/recurso" + "/processSU"
+  getAllProcessSU(){
+    return this.http.get<Proceso[]>(`${this.gURL_SU}`)
+  }
+
+  //PETICIONES BACKEND PARA USUARIO SUMARIADO
+  private gURLSumariado = environment.URL + "/recurso" + "/procesoSumariado"
+
+  getProcessByIdSumariado(idUserSumariado: number){
+    return this.http.get<Proceso[]>(`${this.gURLSumariado}/${idUserSumariado}`)
+  }
 }

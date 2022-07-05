@@ -1,21 +1,34 @@
 <h1 mat-dialog-title class="text-center">SUBIR DOCUMENTO</h1>
 
-<div class="container">
-    <form>
-        <p fxLayout="row" fxLayoutAlign="start" fxLayoutGap="50px">
-            <label class="style_nombre">Seleccionar Tipo de Documento</label>
-            <mat-form-field appearance="outline">
-                <mat-label>Seleccione tipo de documento</mat-label>
-                <mat-select [formControl]="selectedTipoDocumento">
-                  <mat-option *ngFor="let element of TipoDocumentos" [value]="element.nombre">
-                    {{element.nombre}}
-                  </mat-option>
-                </mat-select>
-            </mat-form-field>  
-        </p>
+<div class="">
+    <form fxLayout="column" fxLayoutAlign="start stretch" fxLayoutGap="20px">
 
+        <mat-form-field appearance="legacy">
+            <mat-label>NOMBRE DOCUMENTO</mat-label>
+            <input [formControl]="nameDocument" matInput placeholder="INTRODUCIR NOMBRE DOCUMENTO">
+            <mat-hint></mat-hint>
+        </mat-form-field>
+
+        <mat-form-field appearance="legacy">
+            <mat-label>REFERENCIA DOCUMENTO</mat-label>
+            <textarea [formControl]="refDocument" matInput placeholder="INTRODUCIR REFERENCIA"></textarea>
+            <mat-hint></mat-hint>
+        </mat-form-field>
+
+        <div  fxLayout="row" fxLayoutAlign="start stretch" fxLayoutGap="20px">
+            <mat-form-field appearance="legacy">
+                <mat-label>BUSCAR LOCALMENTE</mat-label>
+                <input [formControl]="name_doc" matInput placeholder="CLICK PARA BUSCAR" readonly>
+                <mat-hint></mat-hint>
+            </mat-form-field>
+            <p>
+                <input hidden (change)="onFileChange($event)" #fileInput type="file" id="file">
+                <button mat-button class="button-document" (click)="fileInput.click()">CHOOSE FILES</button>
+            </p>
+            
+        </div> 
         
-        <div  fxLayout="row" fxLayoutAlign="start start" fxLayoutGap="20px">
+        <!-- <div  fxLayout="row" fxLayoutAlign="start start" fxLayoutGap="20px">
             <label class="style_nombre">Seleccionar Archivo</label>
             <mat-form-field appearance="outline" id="style_input">
                 <input matInput [formControl]="name_doc" readonly>
@@ -23,7 +36,7 @@
 
             <input hidden (change)="onFileChange($event)" #fileInput type="file" id="file">
             <button mat-button class="button-document" (click)="fileInput.click()">CHOOSE FILES</button>
-        </div>    
+        </div>     -->
     </form>
 
     <div style="margin-top: 20px;" fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="30px">

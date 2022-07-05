@@ -4,5 +4,9 @@ export class Sumariado {
     id_perfil?: number;
     ci?: string;
     nombre?: string;
-    apellido?: string;
+    appaterno?: string;
+    apmaterno?: string;
+    direccion?: string;
+    email?: string;
+    cargo?: string;
 }

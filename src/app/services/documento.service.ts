@@ -1,5 +1,6 @@
+import { DocumentoSISDOC } from './../models/documentoSISDOC';
 import { TipoDocumento } from './../models/tipo_documento';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
 import { Documento } from '../models/documento';
@@ -31,4 +32,44 @@ export class DocumentoService {
   postDocumentosArchivo(formData: FormData){
     return this.http.post(`${this.pURL}/upload`,formData)
   }
+  
+  updateDocumentoEstado(id: any){
+    return this.http.put(`${this.pURL}`,id)
+  }
+
+  //SISTEMA DOCUMENTAL
+  private sisdoc_gURL = environment.URL_SISDOCUMENTAL
+  
+  getDocumentosSISDOC(query: string){
+    return this.http.get<DocumentoSISDOC[]>(`${this.sisdoc_gURL}/${query}`)
+  }
+
+  downloadDocumentoSISDOC(dir: string){
+    //${this.gURL}/download/${dir}
+    return this.http.get(dir, {
+      responseType: 'blob'
+    })
+  }
+
+  private gURL_downloadSISDOC = environment.URL + "/recurso" + "/documentDownloadSISDOC"
+  private gURL_downloadSISSUM = environment.URL + "/recurso" + "/documentDownloadSISSUM"
+
+  downloadDocumentoSISDOC_2(dir: string){
+    //${this.gURL}/download/${dir}
+    return this.http.get(`${this.gURL_downloadSISDOC}/${dir}`, { responseType: 'blob' })
+  }
+
+  downloadDocumentoSISSUM(dir: string){
+    //${this.gURL}/download/${dir}
+    return this.http.get(`${this.gURL_downloadSISSUM}/${dir}`)
+  }
+
+  //VISTA SUMARIADO
+  private gURL_sumariado = environment.URL + "/recurso" + "/documentSumariado"
+
+  getDocumentsSumariado(id_usuario: number, id_proceso: number){
+    //${this.gURL}/download/${dir}
+    return this.http.get<Documento[]>(`${this.gURL_sumariado}/${id_usuario}/${id_proceso}`)
+  } 
+
 }

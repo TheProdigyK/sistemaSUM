@@ -1,3 +1,4 @@
+import { Persona } from './../models/persona';
 import { JwtHelperService } from '@auth0/angular-jwt';
 import { Auth } from './../models/auth';
 import { HttpClient } from '@angular/common/http';
@@ -28,5 +29,11 @@ export class AuthService {
   signin(user: Auth){
     return this.http.post(`${this.pURL}/auth`, user)
   }
+
+  private gURL_persona = environment.URL + "/recurso" + "/persona"
+
+  getPersonaByCI(ci: string){
+    return this.http.get<Persona>(`${this.gURL_persona}/${ci}`)
+  } 
 
 }

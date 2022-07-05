@@ -1,7 +1,14 @@
 <h1 mat-dialog-title class="text-center">GENERAR ENLACES</h1>
 
-<div class="container">
+<div class="">
+
     <form>
+        <p fxLayout="column" fxLayoutAlign="start stretch">
+            <mat-form-field class="example-form-field" appearance="outline">
+              <mat-label>EMAIL</mat-label>
+              <input [formControl]="emailSet" matInput type="email" placeholder="INTRODUCIR EMAIL" #input>
+            </mat-form-field>
+        </p>
         <p fxLayout="row" fxLayoutAlign="center start" fxLayoutGap="20px">
             <mat-form-field appearance="outline" class="form-url" id="style_input">
                 <input matInput [formControl]="urlString" readonly>

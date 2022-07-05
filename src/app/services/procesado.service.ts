@@ -23,4 +23,7 @@ export class ProcesadoService {
   uploadProcesado(procesado: Procesado){
     return this.http.post<Procesado[]>(`${this.pURL}`, procesado)
   }
+  updateProcesadoEstado(id:any){
+    return this.http.put(`${this.pURL}`, id)
+  }
 }

@@ -21,7 +21,7 @@ export class TopNavComponent implements OnInit {
   }
 
   onLoggedout(): void{
-    localStorage.removeItem('liLoggedin');
+    localStorage.removeItem('token');
     this.router.navigate(['/'])
   }
 

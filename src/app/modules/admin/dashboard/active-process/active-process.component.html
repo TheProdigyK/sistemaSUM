@@ -5,7 +5,7 @@
 
     <p>
       <mat-form-field class="search-form-field">
-        <input matInput [(ngModel)]="searchKey" placeholder="Search" autocomplete="off" (keyup)="applyFilter()">
+        <input matInput [(ngModel)]="searchKey" placeholder="Buscar" autocomplete="off" (keyup)="applyFilter()">
         <button mat-button matSuffix mat-icon-button aria-label="Clear"*ngIf="searchKey"  (click)="onSearchClear()">
           <mat-icon>close</mat-icon>
         </button>
@@ -40,18 +40,18 @@
       <mat-header-cell *matHeaderCellDef class="table_style"></mat-header-cell>
       <mat-cell *matCellDef="let row">
         <button mat-icon-button (click)="onEdit(row)"><mat-icon>launch</mat-icon></button>
-        <button mat-icon-button color ="warn" (click)="onDelete(row)"><mat-icon>delete_outline</mat-icon></button>
         <button mat-icon-button (click)="onGenerateUrl(row)"><mat-icon>link</mat-icon></button>
+        <button mat-icon-button color ="warn" (click)="onDelete(row)"><mat-icon>delete_outline</mat-icon></button>
       </mat-cell>     
     </ng-container>
     <ng-container matColumnDef="loading">
       <mat-footer-cell *matFooterCellDef colspan="6">
-        Loading data...
+        Cargando procesos...
       </mat-footer-cell>
     </ng-container>
     <ng-container matColumnDef="noData">
       <mat-footer-cell *matFooterCellDef colspan="6">
-        NO DATA...
+        SIN PROCESOS ACTIVOS...
       </mat-footer-cell>
     </ng-container>
     <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>

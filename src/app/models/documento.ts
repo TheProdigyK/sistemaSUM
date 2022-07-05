@@ -1,4 +1,5 @@
 export class Documento {
+    id_documento?: number;
     nombre?: string;
     n_cite?: string;
     tipo?: string;
@@ -6,11 +7,14 @@ export class Documento {
     fecha_modificacion?: Date;
     id_proceso?: number;
     n_correspondencia?: string;
-    ruta?: string;
+    rutaservidor?: string;
+    rutaservidorSISDOC?: string;
+    nombreservidor?: string;
     usuario_registro?: string;
     estado?: string;
     id_usuario?: number;
     id_perfil?: number;
     ci?: string;
-    id_tipo_documento?: number;
+    referencia?: string;
+    archivoFisico?: File
 }

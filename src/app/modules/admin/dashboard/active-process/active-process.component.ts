@@ -104,7 +104,7 @@ export class ActiveProcessComponent implements OnInit {
     const dialogConfig = new MatDialogConfig();
     dialogConfig.disableClose = false;
     dialogConfig.autoFocus = true;
-    dialogConfig.width = "50%";
+    dialogConfig.width = "30%";
     dialogConfig.data = row;
     this.dialog.open(ArchivarProcesoDialogComponent,dialogConfig).afterClosed().subscribe(
       val => {

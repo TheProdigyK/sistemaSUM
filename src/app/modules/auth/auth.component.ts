@@ -39,8 +39,10 @@ export class AuthComponent implements OnInit {
       this.user_data = decode(res.token || "")
       if(this.user_data.id_perfil == 1){
         this.router.navigate(['dashboard']) //dashboard
-      }else{
+      }else if(this.user_data.id_perfil == 2){
         this.router.navigate(['dashboard/view']) //view documents
+      }else if(this.user_data.id_perfil == 3){
+        this.router.navigate(['dashboard/archivedSU'])
       }
     })
   }  

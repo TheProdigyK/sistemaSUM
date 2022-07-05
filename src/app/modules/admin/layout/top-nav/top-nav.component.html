@@ -8,11 +8,11 @@
     </div>
 
     <span class="nav-spacer"></span>
-    <form class="hidden-sm" style="margin-right: 20px; margin-top: 8px;">
+    <!-- <form class="hidden-sm" style="margin-right: 20px; margin-top: 8px;">
     <mat-form-field style="font-size: 1rem;">
         <input matInput placeholder="Search">
     </mat-form-field>
-    </form>
+    </form> -->
 
     <button class="hidden-sm" mat-icon-button [matMenuTriggerFor]="profile">
         <mat-icon>
@@ -21,17 +21,17 @@
     </button>
 
     <mat-menu #profile="matMenu" [overlapTrigger]="false">
-        <button mat-menu-item>
+        <!-- <button mat-menu-item>
             <mat-icon>person</mat-icon>
             <span>Profile</span>
         </button>
         <button mat-menu-item>
             <mat-icon>inbox</mat-icon>
             <span>Inbox</span>
-        </button>
-        <button mat-menu-item>
-            <mat-icon>settings</mat-icon>
-            <span>Settings</span>
+        </button> -->
+        <button (click)="onLoggedout()" mat-menu-item>
+            <mat-icon>logout</mat-icon>
+            <span>CERRAR SESION</span>
         </button>
     </mat-menu>
 

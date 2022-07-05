@@ -1,0 +1,50 @@
+<h1 mat-dialog-title class="text-center">AÑADIR SUMARIADO</h1>
+<div>
+    <form [formGroup]="personaForm" (ngSubmit)="onCreateSumariado()" fxLayout="column" fxLayoutAlign="start stretch" fxLayoutGap="20px">
+        <mat-form-field appearance="legacy">
+        <mat-label>C.I.</mat-label>
+            <input matInput formControlName="ci" placeholder="INTRODUCIR C.I.">
+            <mat-hint>1234567 LP</mat-hint>
+        </mat-form-field>
+
+        <div fxLayout="row" fxLayoutAlign="start stretch" fxLayoutGap="20px">
+            <mat-form-field appearance="legacy">
+                <mat-label>APELLIDO PATERNO</mat-label>
+                <input matInput formControlName="appaterno" placeholder="INTRODUCIR APELLIDO PATERNO">
+                <mat-hint></mat-hint>
+            </mat-form-field>
+
+            <mat-form-field appearance="legacy">
+                <mat-label>APELLIDO MATERNO</mat-label>
+                <input matInput formControlName="apmaterno" placeholder="INTRODUCIR APELLIDO MATERNO">
+                <mat-hint></mat-hint>
+            </mat-form-field>
+    
+            <mat-form-field appearance="legacy">
+                <mat-label>NOMBRES</mat-label>
+                <input matInput formControlName="nombre" placeholder="INTRODUCIR NOMBRES">
+                <mat-hint>NOMBRE1 NOMBRE2</mat-hint>
+            </mat-form-field>
+
+        </div>
+        <mat-form-field appearance="legacy">
+            <mat-label>DIRECCION</mat-label>
+            <input matInput formControlName="direccion" placeholder="INTRODUCIR DIRECCION">
+            <mat-hint></mat-hint>
+        </mat-form-field>
+
+        <mat-form-field appearance="legacy">
+            <mat-label>EMAIL</mat-label>
+            <input matInput formControlName="email" placeholder="INTRODUCIR EMAIL" type="email">
+            <mat-hint>prueba@gmail.com</mat-hint>
+        </mat-form-field>
+
+        <div style="margin-top: 20px;" fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="30px">
+            <button mat-button class="button-proceso" (click)="onCancel()">CANCELAR</button>
+            <button mat-button class="button-proceso" type="submit">CREAR SUMARIADO</button>
+        </div>
+    </form>
+
+    
+</div>
+

@@ -1,0 +1,70 @@
+<h1 mat-dialog-title class="text-center">PROCESO ARCHIVADO</h1>
+
+
+<div fxLayout="column" fxLayoutGap="20px">
+  <div fxLayout="row" fxLayoutAlign="center center" >
+    <table mat-table [dataSource]="dataSumariado" matSort class="smth sumariadoTable">
+      			
+        <ng-container matColumnDef="ci">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> C.I. </th>
+            <td mat-cell *matCellDef="let element"> {{element.ci}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="apellido">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> NOMBRE SUMARIADO </th>
+            <td mat-cell *matCellDef="let element"> {{element.appaterno + " " + element.apmaterno + " " + element.nombre}} </td>
+        </ng-container>
+    
+        <ng-container matColumnDef="direccion">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> DIRECCION </th>
+            <td mat-cell *matCellDef="let element"> {{element.direccion}} </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="sumariadoColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: sumariadoColumns;"></tr>
+    </table>    
+  </div>
+  <mat-paginator #sumariadoPaginator [pageSizeOptions]="[3, 5, 7]" aria-label="Select page of users"></mat-paginator>
+
+</div>
+
+<div fxLayout="column" fxLayoutGap="20px">
+  <div fxLayout="row" fxLayoutAlign="center center" >
+    <table mat-table [dataSource]="dataDocumento" matSort class="smth documentTable">
+      			
+        <ng-container matColumnDef="n_correspondencia">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> NO. CORRESPONDENCIA </th>
+          <td mat-cell *matCellDef="let element"> {{element.n_correspondencia || "-"}} </td>
+        </ng-container>
+      
+        <ng-container matColumnDef="n_cite">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> NO. CITE </th>
+          <td mat-cell *matCellDef="let element"> {{element.n_cite || "-" }} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="nombre">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> NOMBRE DOCUMENTO </th>
+          <td mat-cell *matCellDef="let element"> {{element.nombre || "-"}} </td>
+        </ng-container>
+        
+        <ng-container matColumnDef="referencia">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> REFERENCIA </th>
+          <td mat-cell *matCellDef="let element"> {{element.referencia}} </td>
+        </ng-container>
+        <ng-container matColumnDef="actions">
+            <th mat-header-cell *matHeaderCellDef class="table_style"></th>
+            <td mat-cell *matCellDef="let row">
+              <button mat-icon-button color ="warn" (click)="obtenerPDF(row)"><mat-icon>visibility</mat-icon></button>
+            </td>     
+        </ng-container>
+      
+        <tr mat-header-row *matHeaderRowDef="documentoColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: documentoColumns;"></tr>
+    </table>    
+  </div>
+  <mat-paginator #documentoPaginator [pageSizeOptions]="[3, 5, 7]" aria-label="Select page of users"></mat-paginator>
+
+  <div style="margin-top: 20px;" fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="30px">
+    <button mat-button class="button-proceso" (click)="onTerminate()">VOLVER</button>
+  </div>
+</div>
