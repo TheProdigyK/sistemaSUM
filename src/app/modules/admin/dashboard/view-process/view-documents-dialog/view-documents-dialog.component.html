@@ -36,7 +36,57 @@
   </div>
   <mat-paginator #sumariadoPaginator [pageSizeOptions]="[3, 5, 7]" aria-label="Select page of users"></mat-paginator>
 
+  <p class="linea"></p>
+
+  <h1 mat-dialog-title class="text-center">SUBIR DOCUMENTOS EXTRA</h1>
+
+  <p>
+    <label id="style_color_text">Desea subir archivos de descargo al proceso?</label>
+  </p>
+
+  <p fxLayout="row" fxLayoutAlign="start" fxLayoutGap="20px">
+    <label class="style_nombre">Subir Documento</label>
+    <button mat-button class="button-proceso" (click)="buscarLocalmente()">BUSCAR LOCALMENTE</button>
+  </p>  
+
+  <div fxLayout="column" fxLayoutGap="20px">
+    <div fxLayout="row" fxLayoutAlign="center center" >
+        <table mat-table #docTable docTable matSort [dataSource]="dataDocumentoUpload" class="smth documentTable">
+
+          <ng-container matColumnDef="nombre">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> NOMBRE DOCUMENTO </th>
+            <td mat-cell *matCellDef="let element"> {{element.nomdescargo || "-"}} </td>
+          </ng-container>
+                  
+          <ng-container matColumnDef="referencia">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> REFERENCIA </th>
+            <td mat-cell *matCellDef="let element"> {{element.refdescargo}} </td>
+          </ng-container>
+  
+          <ng-container matColumnDef="fecha_registro">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> FECHA REGISTRO </th>
+            <td mat-cell *matCellDef="let element"> {{element.fecha_registro | date }} </td>
+          </ng-container>
+          
+          <ng-container matColumnDef="actions">
+              <th mat-header-cell *matHeaderCellDef class="table_style"></th>
+              <td mat-cell *matCellDef="let row">
+                <div fxLayout="row">
+                  <button mat-icon-button (click)="obtenerPDFdescargo(row)"><mat-icon>visibility</mat-icon></button>
+                  <button mat-icon-button color ="warn" (click)="deleteDocument(row)"><mat-icon>clear</mat-icon></button>                      
+                </div>
+                
+              </td>     
+          </ng-container>
+        
+          <tr mat-header-row *matHeaderRowDef="documentoUploadColumns"></tr>
+          <tr mat-row *matRowDef="let row; columns: documentoUploadColumns;"></tr>
+        </table>
+
+    </div>
+    <mat-paginator #documentoPaginator [pageSizeOptions]="[3, 5, 7]" aria-label="Select page of users"></mat-paginator>
+  </div>
   <div style="margin-top: 20px;" fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="30px">
-    <button mat-button class="button-proceso" (click)="onTerminate()">VOLVER</button>
+    <button mat-button class="button-proceso" (click)="guardarCambios()">GUARDAR CAMBIOS</button>
   </div>
 </div>

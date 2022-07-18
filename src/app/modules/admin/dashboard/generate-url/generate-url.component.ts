@@ -61,7 +61,7 @@ export class GenerateUrlComponent implements OnInit {
     this.nombre_proceso = JSON.parse(this.route.snapshot.paramMap.get('nombreProceso') || "");
     this.nProceso.setValue(this.nombre_proceso)
 
-    this.typeDocuments()
+    //this.typeDocuments()
     this.getProcesados()
     this.getDocuments()
 

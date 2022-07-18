@@ -1,3 +1,43 @@
+//@import '../../../scss/responsive';
+@import '../../../scss/palette';
+.icon-display {
+    transform: scale(2.5);
+    padding: 20px;
+ }
+
+.login-card {
+    width: 400px;
+    max-width: 400px;
+    border-radius: 30px;
+}
+.mat-card-title{
+    font-size: 30px;
+    font-weight: bold;
+    padding-top: 10px;
+    padding-bottom: 30px;
+    background: linear-gradient(to bottom left, #00edff, #0189ff);
+    // background: linear-gradient(to bottom left, $md-verdeSingle, $md-azulSingle);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+
+}
+
+.mat-form-field{
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
+::ng-deep .mat-form-field-outline-start {
+    border-radius: 28px 0 0 28px !important;
+    min-width: 28px !important;
+}
+  
+  ::ng-deep .mat-form-field-outline-end {
+    border-radius: 0 28px 28px 0 !important;
+}
+
+
 .main-div mat-card {
     padding: 0px;
 }
@@ -8,11 +48,18 @@
 .logo-appearance{
     padding: 20px;
     margin-right: 10px;
+    max-width: 40%;
 }
 
 .mat-success {
-    background-color: #003D62;
-    color: #fff;
+    background: linear-gradient(to bottom left, #00edff, #0189ff);
+    // background: linear-gradient(to bottom left, $md-verdeSingle, $md-azulSingle);
+    color: white;
+}
+
+.mat-buttonColor{
+    color: #0189ff;
+    // color: $md-azulSingle
 }
 
 .mat-form-field-appearance-outline .mat-form-field-outline {

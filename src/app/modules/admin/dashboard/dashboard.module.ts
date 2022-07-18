@@ -13,6 +13,7 @@ import { GenerateUrlComponent } from './generate-url/generate-url.component';
 import { UrlDialogComponent } from './generate-url/url-dialog/url-dialog.component';
 
 
+
 @NgModule({
   declarations: [
     // ActiveProcessComponent,
@@ -28,6 +29,8 @@ import { UrlDialogComponent } from './generate-url/url-dialog/url-dialog.compone
     // GenerateUrlComponent
   
     // UrlDialogComponent
+  
+    
   ],
   imports: [
     CommonModule,

@@ -22,6 +22,8 @@ export class LayoutComponent implements OnInit {
   toolBarHeight = 64;
   private readonly mediaWatcher: Subscription;
   isDarkTheme = false
+  dark = true;
+
 
   constructor(
     media: MediaObserver

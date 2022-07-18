@@ -22,6 +22,7 @@ import { SumariadoCrearDialogComponent } from './dashboard/add-process/sumariado
 import { ViewDocumentsDialogComponent } from './dashboard/view-process/view-documents-dialog/view-documents-dialog.component';
 import { RemoveRowDialogComponent } from './dashboard/add-process/remove-row-dialog/remove-row-dialog.component';
 import { ArchivedDialogComponent } from './dashboard/archived-process/archived-dialog/archived-dialog.component';
+import { SumariadoDescargosDialogComponent } from './dashboard/add-process/sumariado-descargos-dialog/sumariado-descargos-dialog.component';
 
 @NgModule({
   declarations: [
@@ -43,7 +44,8 @@ import { ArchivedDialogComponent } from './dashboard/archived-process/archived-d
     SumariadoCrearDialogComponent,
     RemoveRowDialogComponent,
     ViewDocumentsDialogComponent,
-    ArchivedDialogComponent
+    ArchivedDialogComponent,
+    SumariadoDescargosDialogComponent
   ],
   imports: [
     CommonModule,

@@ -1,3 +1,4 @@
+import { SiblingSharedService } from './../../../../services/sibling-shared.service';
 import { ViewDocumentsDialogComponent } from './view-documents-dialog/view-documents-dialog.component';
 import { User } from './../../../../models/user';
 import { ProcesoService } from 'src/app/services/proceso.service';
@@ -8,6 +9,7 @@ import { MatTableDataSource } from '@angular/material/table';
 import { MatSort } from '@angular/material/sort';
 import decode from 'jwt-decode'
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-view-process',
@@ -36,7 +38,10 @@ export class ViewProcessComponent implements OnInit {
 
   constructor(
     private dialog: MatDialog,
-    private procesoServices:ProcesoService
+    private router: Router,
+    private route: ActivatedRoute,
+    private procesoServices:ProcesoService,
+    private siblingSharedServices: SiblingSharedService
   ) { }
 
   ngOnInit(): void {
@@ -46,18 +51,12 @@ export class ViewProcessComponent implements OnInit {
 
   //Ver X proceso 
   verProceso(row:Proceso){
-    const dialogConfig = new MatDialogConfig();
-    dialogConfig.disableClose = true;
-    dialogConfig.autoFocus = true;
-    dialogConfig.width = "80%";
-    dialogConfig.data = {sumariado: this.sumariado, procesoSeleccionado: row};
-    this.dialog.open(ViewDocumentsDialogComponent,dialogConfig).afterClosed().subscribe(
-      result => {
-        if(result.event == 'add'){  
-        }
-      }
-    );
+    this.router.navigate(['dashboard/sproceso']);
+    this.siblingSharedServices.setData(row)
+  }
 
+  ngAfterViewInit(){
+    localStorage.removeItem("sumariadoRow_process")
   }
 
   //Obtener procesos Activos

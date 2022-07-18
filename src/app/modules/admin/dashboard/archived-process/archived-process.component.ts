@@ -62,7 +62,8 @@ export class ArchivedProcessComponent implements OnInit {
 
   //VER DETALLES DEL PROCESO
   verDetalles(row: Proceso){
-    this.siblingSharedService.setRowProcess(row)
+    //this.siblingSharedService.setRowProcess(row)
+    this.siblingSharedService.sendProceso(row)
     this.router.navigate(['dashboard/verProceso'])
   }
 

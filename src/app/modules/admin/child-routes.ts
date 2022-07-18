@@ -1,3 +1,4 @@
+import { ViewDocumentsDialogComponent } from './dashboard/view-process/view-documents-dialog/view-documents-dialog.component';
 import { ArchivedDialogComponent } from './dashboard/archived-process/archived-dialog/archived-dialog.component';
 import { GenerateUrlComponent } from './dashboard/generate-url/generate-url.component';
 import { AddProcessComponent } from './dashboard/add-process/add-process.component';
@@ -38,7 +39,20 @@ export const childRoutes = [
         path: 'view',
         component: ViewProcessComponent,
         canActivate:[RoleGuard],
-        data: {icon: 'assignment_ind', text: 'VER PROCESOS', expectedRole: 2}
+        data: {icon: 'assignment_ind', text: 'VER PROCESOS', expectedRole: 2},
+        children: [
+            {
+                path: 'vproceso',
+                component: ViewDocumentsDialogComponent,
+                canActivate:[RoleGuard],
+                data: {expectedRole: 2}
+            }
+        ]
+    },
+    {
+        path: 'sproceso',
+        component: ViewDocumentsDialogComponent,
+        data: {icon: 'assignment_ind', text: 'VER PROCESOS', expectedRole: 4},
     },
     {
         path: 'archivedSU',

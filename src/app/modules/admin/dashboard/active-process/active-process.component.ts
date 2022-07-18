@@ -1,3 +1,4 @@
+import { SiblingSharedService } from 'src/app/services/sibling-shared.service';
 import { ArchivarProcesoDialogComponent } from './archivar-proceso-dialog/archivar-proceso-dialog.component';
 import { Proceso } from './../../../../models/proceso';
 import { NuevoProcesoDialogComponent } from './nuevo-proceso-dialog/nuevo-proceso-dialog.component';
@@ -37,12 +38,17 @@ export class ActiveProcessComponent implements OnInit {
     private _liveAnnouncer:LiveAnnouncer,
     private dialog: MatDialog,
     private procesoServices: ProcesoService,
+    private siblingSharedServices: SiblingSharedService,
     private router: Router
   ) { }
 
   ngOnInit(): void {
     this.sumariante = decode(this.token || "")
     this.getAllProcess()    
+  }
+
+  ngAfterViewInit(){
+    localStorage.removeItem("row_process")
   }
 
   //BACKEND GET PROCESS BY ID USER
@@ -96,7 +102,8 @@ export class ActiveProcessComponent implements OnInit {
 
   //DIALOG EDIT PROCESS
   onEdit(row: Proceso){
-    this.router.navigate(['dashboard/addProcess', {id_proceso: JSON.stringify(row.id_proceso), nombreProceso: JSON.stringify(row.nombre)}])
+    this.siblingSharedServices.setData(row)
+    this.router.navigate(['dashboard/addProcess'])
   }
 
   //DIALOG ARCHIVED PROCESS

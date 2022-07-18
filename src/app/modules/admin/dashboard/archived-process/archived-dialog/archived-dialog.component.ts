@@ -50,12 +50,18 @@ export class ArchivedDialogComponent implements OnInit {
   ngOnInit(): void {
 
     this.sumariante = decode(this.token || "")
-    this.proceso = this.siblingSharedService.getRowProcess()
+    //this.proceso = this.siblingSharedService.getRowProcess()
+    this.siblingSharedService.currentProceso.subscribe( process => {
+      this.proceso = process
+      console.log(this.proceso)
+      if(this.sumariante != null && this.proceso != ""){
+        this.getProcesados()
+        this.getDocuments()
+      }
 
-    if(this.sumariante != null && this.proceso != null){
-      this.getProcesados()
-      this.getDocuments()
-    }
+    })
+
+    
     
     
   }

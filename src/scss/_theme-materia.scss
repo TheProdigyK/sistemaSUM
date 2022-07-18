@@ -1,0 +1,53 @@
+@use '@angular/material' as mat;
+@import 'palette';
+
+@include mat.core();
+
+// Define a light theme
+// $light-primary: mat.define-palette(mat.$indigo-palette);
+// $light-accent: mat.define-palette(mat.$pink-palette);
+// $light-warn: mat.define-palette(mat.$purple-palette);
+
+// $light-primary: mat.define-palette(mat.$light-blue-palette, 800);
+// $light-accent: mat.define-palette(mat.$cyan-palette, 500);
+// $light-warn: mat.define-palette(mat.$red-palette);
+
+//GESTORA COLORES
+
+$light-primary: mat.define-palette($md-azul);
+$light-accent: mat.define-palette($md-verde);
+$light-warn: mat.define-palette(mat.$red-palette);
+
+$light-theme: mat.define-light-theme($light-primary, $light-accent, $light-warn);
+
+// Define a dark theme
+$dark-primary: mat.define-palette(mat.$pink-palette);
+$dark-accent: mat.define-palette(mat.$blue-grey-palette);
+$dark-warn: mat.define-palette(mat.$green-palette);
+
+$dark-theme: mat.define-dark-theme($dark-primary, $dark-accent);
+
+@include mat.all-component-themes($light-theme);
+@include mat.core-theme($light-theme);
+@include mat.button-theme($light-theme);
+
+.theme-light{
+    @include mat.core-theme($light-theme);
+    @include mat.button-theme($light-theme);
+}
+
+.theme-dark{
+    @include mat.core-theme($light-theme);
+    @include mat.button-theme($light-theme);
+}
+
+
+
+
+
+// Apply the light theme only when the `.my-light-theme` CSS class is applied
+// to an ancestor element of the components (such as `body`).
+// .my-light-theme {
+//  @include mat.core-color($light-theme);
+//  @include mat.button-color($light-theme);
+// }

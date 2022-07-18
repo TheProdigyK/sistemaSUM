@@ -1,3 +1,6 @@
+import { SumariadoDescargosDialogComponent } from './sumariado-descargos-dialog/sumariado-descargos-dialog.component';
+import { Proceso } from 'src/app/models/proceso';
+import { SiblingSharedService } from 'src/app/services/sibling-shared.service';
 import { DocumentoSISDOC } from './../../../../models/documentoSISDOC';
 import { SumariadoCrearDialogComponent } from './sumariado-crear-dialog/sumariado-crear-dialog.component';
 import { DocSisCorrespondenciaDialogComponent } from './doc-sis-correspondencia-dialog/doc-sis-correspondencia-dialog.component';
@@ -53,12 +56,12 @@ export class AddProcessComponent implements OnInit {
   token = localStorage.getItem('token');
   public sumariante!: User
 
-  //DATOS OBTENIDOS DE UNA VISTA ANTERIOR
-  id_proceso!: number;
-  nombre_proceso!: string;
 
   //NOMBRE PROCESO (VISTA)
   nProceso = new FormControl('', Validators.required);
+
+  //PROCESO ABIERTO
+  proceso!:Proceso
 
   @ViewChild(MatTable,{static:true}) table!: MatTable<any>;
   @ViewChild('docTable') docTable!: MatTable<any>;
@@ -68,22 +71,34 @@ export class AddProcessComponent implements OnInit {
     private router: Router,
     private route: ActivatedRoute,
     private procesadoService: ProcesadoService,
-    private documentoService: DocumentoService
+    private documentoService: DocumentoService,
+    private siblingSharedService: SiblingSharedService
   ) { }
 
   ngOnInit(): void {
     //SET VALORES DE UNA VISTA ANTERIOR
-    this.id_proceso = JSON.parse(this.route.snapshot.paramMap.get('id_proceso') || "");
-    this.nombre_proceso = JSON.parse(this.route.snapshot.paramMap.get('nombreProceso') || "");
+    
+    if (localStorage.getItem("row_process") === null || localStorage.getItem("row_process") === "undefined") {
+      this.proceso =  this.siblingSharedService.getData()
+      localStorage.setItem('row_process', JSON.stringify(this.proceso))  
+    }else{
+      this.proceso = JSON.parse(localStorage.getItem('row_process') || "");
+    }
 
     //SET NOMBRE PROCESO VISTA
-    this.nProceso.setValue(this.nombre_proceso)
+    this.nProceso.setValue(this.proceso.nombre)
 
     //DECODIFICANDO TOKEN EN LA CLASE SUMARIANTE
     this.sumariante = decode(this.token || "");
-    console.log(this.id_proceso)
+    
     this.getProcesados()
     this.getDocuments()
+
+    
+  }
+
+  ngOnDestroy(){
+    localStorage.removeItem("row_process");
   }
 
   //CANCEL BUTTON
@@ -168,11 +183,11 @@ export class AddProcessComponent implements OnInit {
             n_cite: documentoSISDOC.docreg_cite,
             fecha_registro: date,
             fecha_modificacion: date,
-            id_proceso: this.id_proceso,
+            id_proceso: this.proceso.id_proceso,
             n_correspondencia: documentoSISDOC.nrocorres,
-            rutaservidor: "/uploads/"+this.sumariante.nombre+"/"+this.id_proceso,
+            rutaservidor: "/uploads/"+ this.sumariante.nombre+"/"+this.dateTransformFormat() + "/"+this.proceso.id_proceso,
             rutaservidorSISDOC: documentoSISDOC.documento,
-            nombreservidor: this.getdate()+"-"+this.sumariante.nombre+"-"+this.id_proceso+"-"+timestamp+".pdf",
+            nombreservidor:this.getdate()+"-"+this.sumariante.nombre+"-"+this.proceso.id_proceso+"-"+timestamp+".pdf",
             usuario_registro: this.sumariante.nombre,
             estado: "activo",
             id_usuario: this.sumariante.id_usuario,
@@ -207,9 +222,9 @@ export class AddProcessComponent implements OnInit {
             nombre: result.data.nombreArchivo,
             fecha_registro: date,
             fecha_modificacion: date,
-            id_proceso: this.id_proceso,
-            rutaservidor: "/uploads/"+this.sumariante.nombre+"/"+this.id_proceso,
-            nombreservidor: this.getdate()+"-"+this.sumariante.nombre+"-"+this.id_proceso+"-"+timestamp+".pdf",
+            id_proceso: this.proceso.id_proceso,
+            rutaservidor: "/uploads/"+this.sumariante.nombre+"/"+this.dateTransformFormat() + "/"+this.proceso.id_proceso,
+            nombreservidor: this.getdate()+"-"+this.sumariante.nombre+"-"+this.proceso.id_proceso+"-"+timestamp+".pdf",
             usuario_registro: this.sumariante.nombre,
             estado: "activo",
             id_usuario: this.sumariante.id_usuario,
@@ -252,7 +267,7 @@ export class AddProcessComponent implements OnInit {
     let procesados:Procesado[] = []
     this.dataSumariado.data.forEach(x => {
       procesados.push({
-        id_proceso: this.id_proceso,
+        id_proceso: this.proceso.id_proceso,
         id_sumariado: x.id_sumariado,
         id_usuario: this.sumariante.id_usuario,
         id_perfil: this.sumariante.id_perfil,
@@ -291,22 +306,17 @@ export class AddProcessComponent implements OnInit {
     //FORMA 2 (RECOMENDABLE)
 
     var formData = new FormData()
-    var docSISDOC:Documento[]
     for (let index=0; index < doc.length; index++){
       const docS = doc[index]
       if(docS.archivoFisico != null){
-        let fileName:string = docS.nombreservidor || ""
+        let fileName:string = this.sendProcessInit() +"%"+ docS.nombreservidor || ""
         console.log(fileName)
         formData.append('myFiles', docS.archivoFisico!, fileName)
       }else if(docS.rutaservidorSISDOC){
         this.documentoService.downloadDocumentoSISDOC_2(encodeURIComponent(docS.rutaservidorSISDOC)).subscribe(
           (res) =>{
-            // var uri = window.URL.createObjectURL(res);
-            // window.open(uri)
             var formDataSISDOC = new FormData()
-            var file = new File([res], "tempname");
-            let fileName:string = docS.nombreservidor || ""
-            console.log(fileName)
+            let fileName:string = this.sendProcessInit() +"%"+ docS.nombreservidor || ""
             formDataSISDOC.append('myFiles', res, fileName)
             this.documentoService.postDocumentosArchivo(formDataSISDOC).subscribe()
         })
@@ -342,16 +352,11 @@ export class AddProcessComponent implements OnInit {
       window.open(uri)
     } else{
       console.log("ambas condiciones son falsas")
+      this.documentoService.getDocumentFile(row.id_documento!).subscribe( res =>{
+        var uri = window.URL.createObjectURL(res);
+        window.open(uri);
+      })
     }
-
-    
-
-    // let text2:string = '/uploads/MJ39/16'
-    // this.documentoService.downloadDocumentoSISSUM(encodeURIComponent(text2)).subscribe(
-    //   res => {
-    //     console.log(res)
-    //   }
-    // )    
 
   }
 
@@ -359,7 +364,8 @@ export class AddProcessComponent implements OnInit {
       METODOS GET PARA OBTENER DATOS DEL BACKEND
   */
   getProcesados(){
-    this.procesadoService.getProcesadosById(this.id_proceso).subscribe(res =>{
+    let n:number = this.proceso.id_proceso || 0
+    this.procesadoService.getProcesadosById(n).subscribe(res =>{
       this.dataSumariado = new MatTableDataSource(res)
       this.dataSumariado.paginator = this.sumariadoPaginator;
       this.dataSumariado.sort = this.sort;
@@ -368,7 +374,8 @@ export class AddProcessComponent implements OnInit {
   }
 
   getDocuments(){
-    this.documentoService.getDocuments(this.id_proceso).subscribe(
+    let n:number = this.proceso.id_proceso || 0
+    this.documentoService.getDocuments(n).subscribe(
       res =>{
         this.dataDocumento = new MatTableDataSource(res)
         this.dataDocumento.paginator = this.documentoPaginator;
@@ -387,7 +394,7 @@ export class AddProcessComponent implements OnInit {
     dialogConfig.width = "40%";
     dialogConfig.data = {
       documentoSeleccionado: row,
-      id_proceso: this.id_proceso,
+      id_proceso: this.proceso.id_proceso,
       nombreItem: 'DOCUMENTO'};
     this.dialog.open(RemoveRowDialogComponent,dialogConfig).afterClosed().subscribe(
       result => {
@@ -409,7 +416,7 @@ export class AddProcessComponent implements OnInit {
     dialogConfig.width = "40%";
     dialogConfig.data = {
       sumariadoSeleccionado: row,
-      id_proceso: this.id_proceso,
+      id_proceso: this.proceso.id_proceso,
       nombreItem: 'SUMARIADO'};
     this.dialog.open(RemoveRowDialogComponent,dialogConfig).afterClosed().subscribe(
       result => {
@@ -424,6 +431,23 @@ export class AddProcessComponent implements OnInit {
     );
   }
 
+  /*
+      METODOS MODULO DE DESCARGOS POR SUMARIADO
+  */
+
+  
+  viewDescargos(row: Sumariado){
+    const dialogConfig = new MatDialogConfig();
+    dialogConfig.disableClose = true;
+    dialogConfig.autoFocus = true;
+    dialogConfig.width = "60%";
+    dialogConfig.data = {sumariado: row}
+    this.dialog.open(SumariadoDescargosDialogComponent,dialogConfig).afterClosed().subscribe(
+      result => {
+    })
+    
+  }
+
   getdate(){
     var today = new Date();
     var dd = String(today.getDate()).padStart(2, '0');
@@ -432,6 +456,28 @@ export class AddProcessComponent implements OnInit {
   
     let today_str = dd+mm+yyyy;
     return today_str
+  }
+
+  dateTransformFormat(){
+
+    let dt:Date = new Date(this.proceso.fecha_registro || "")
+
+    let year  = dt.getFullYear();
+    let month = (dt.getMonth() + 1).toString().padStart(2, "0");
+    let day   = dt.getDate().toString().padStart(2, "0");
+
+    return year + '-' + month + '-' + day
+  }
+
+  sendProcessInit(){
+
+    let dt:Date = new Date(this.proceso.fecha_registro || "")
+
+    let year  = dt.getFullYear();
+    let month = (dt.getMonth() + 1).toString().padStart(2, "0");
+    let day   = dt.getDate().toString().padStart(2, "0");
+
+    return year + month + day
   }
 
 }

@@ -44,25 +44,23 @@ export class DocumentoService {
     return this.http.get<DocumentoSISDOC[]>(`${this.sisdoc_gURL}/${query}`)
   }
 
-  downloadDocumentoSISDOC(dir: string){
-    //${this.gURL}/download/${dir}
-    return this.http.get(dir, {
-      responseType: 'blob'
-    })
-  }
-
   private gURL_downloadSISDOC = environment.URL + "/recurso" + "/documentDownloadSISDOC"
   private gURL_downloadSISSUM = environment.URL + "/recurso" + "/documentDownloadSISSUM"
 
   downloadDocumentoSISDOC_2(dir: string){
-    //${this.gURL}/download/${dir}
     return this.http.get(`${this.gURL_downloadSISDOC}/${dir}`, { responseType: 'blob' })
   }
 
   downloadDocumentoSISSUM(dir: string){
-    //${this.gURL}/download/${dir}
     return this.http.get(`${this.gURL_downloadSISSUM}/${dir}`)
   }
+
+
+  //FILE
+  private gURL_file = environment.URL + "/recurso" + "/documentFile"
+  getDocumentFile(id_documento: number){
+    return this.http.get(`${this.gURL_file}/${id_documento}`, { responseType: 'blob'})
+  } 
 
   //VISTA SUMARIADO
   private gURL_sumariado = environment.URL + "/recurso" + "/documentSumariado"
